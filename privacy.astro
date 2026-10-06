@@ -1,0 +1,85 @@
+---
+import PageLayout from "@theme/layouts/PageLayout.astro";
+import RelatedResources from "@theme/components/RelatedResources.astro";
+import { locales, defaultLocale, getLocaleFromUrl, getLocalizedUrl } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+
+const locale = getLocaleFromUrl(Astro.url);
+const domain = "timeswimconverter.com";
+const updated = "July 23, 2026";
+---
+<PageLayout
+  title="Privacy Policy - Time Swim Converter"
+  description="Privacy policy for Time Swim Converter by Shahab Dev. Learn how our privacy policy protects your browser calculations and data."
+  keywords="privacy policy, privacy policy time swim converter, Shahab Dev privacy"
+>
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-6">
+      <div class="text-xs sm:text-sm text-white/50">Last updated: {updated}</div>
+    </header>
+
+    <div class="glass-card">
+      <div class="p-6 sm:p-8 space-y-8 text-white/80">
+        <p class="text-lg leading-relaxed">This <strong class="text-white">privacy policy</strong> for Time Swim Converter explains how Time Swim Converter ("we", "us", "our"), operated by <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 font-semibold hover:underline">Shahab Dev</a>, handles information when you visit {domain} and use our pool conversion tools. Read our <a href="/terms/" class="text-ocean-400 font-semibold hover:underline">Terms of Service</a> for usage guidelines.</p>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Privacy Policy Data Collection Overview</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span><strong class="text-white">Usage data:</strong> Basic, aggregated metrics (e.g., pages visited, device type, approximate region) analyzed through tools like our <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">SEO audit</a> suite to maintain site speed and security.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span><strong class="text-white">Server logs:</strong> Standard web logs (IP address, user-agent, timestamps) used strictly for security, fraud prevention, and diagnostics.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span><strong class="text-white">Messages you send:</strong> Information submitted voluntarily via our <a href={getLocalizedUrl('/contact-us/', locale)} class="premium-link">contact page</a> or directly to <a href="mailto:admin@shahabdev.com" class="text-ocean-400 hover:underline">admin@shahabdev.com</a>.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Calculator Data &amp; Browser Execution</h2>
+          <p class="leading-relaxed">All swimming time conversions run client-side inside your web browser. We do not store or transmit your typed race times or slider parameters to external servers. If you use image tools like our <a href="https://jpegtosvg.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">JPEG to SVG converter</a> or engineering tools like our <a href="https://psigtopsia.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">pressure converter</a>, processing is kept secure and transient.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">How We Use Information</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Maintain, optimize, and improve converter accuracy and performance.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Protect infrastructure against malicious traffic, abuse, or DDoS attacks.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Respond to user support requests, feature recommendations, and feedback.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Sharing &amp; Data Rights</h2>
+          <p class="leading-relaxed">We do not sell your personal information. We may process data with trusted infrastructure providers bound by privacy contracts. Under GDPR, CCPA, and applicable laws, you have rights to access, correct, or request deletion of any personal communications sent to us.</p>
+        </section>
+
+        <section class="border-t border-white/10 pt-6">
+          <h2 class="text-2xl font-bold gradient-text mb-4">Contact Privacy Team</h2>
+          <p class="leading-relaxed">For privacy questions or data requests, contact <strong class="text-white">Shahab Dev</strong> via email at <a href="mailto:admin@shahabdev.com" class="text-ocean-400 hover:underline">admin@shahabdev.com</a> or use the <a href={getLocalizedUrl('/contact-us/', locale)} class="premium-link">contact page</a>.</p>
+        </section>
+
+        <RelatedResources />
+      </div>
+    </div>
+  </article>
+</PageLayout>

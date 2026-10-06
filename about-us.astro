@@ -1,0 +1,105 @@
+---
+import PageLayout from "@theme/layouts/PageLayout.astro";
+import RelatedResources from "@theme/components/RelatedResources.astro";
+import { locales, defaultLocale, getLocaleFromUrl, getLocalizedUrl } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+
+const locale = getLocaleFromUrl(Astro.url);
+const site = "Swim Time Converter";
+const domain = "timeswimconverter.com";
+const updated = "July 23, 2026";
+---
+<PageLayout
+  title="About Us - Time Swim Converter"
+  description="About us at Time Swim Converter by Shahab Dev. Learn about our accurate pool time conversion algorithms for swimmers, coaches, and recruiters."
+  keywords="about us, about time swim converter, Shahab Dev swimming software"
+>
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-6">
+      <div class="text-xs sm:text-sm text-white/50">Last updated: {updated}</div>
+    </header>
+
+    <div class="glass-card">
+      <div class="p-6 sm:p-8 space-y-8">
+        <p class="text-white/80 text-lg leading-relaxed">
+          Learn <strong class="text-white">about us</strong> at Time Swim Converter, a lightweight, accurate-by-design tool for comparing swim performances across pool types (SCY, SCM, and LCM). Created by Shahab Dev, it grew from a simple need: competitive swimmers, coaches, and international recruits wanted transparent conversions that reflect how starts, turns, and underwater dolphin kicks influence race times. Convert your times instantly with our <a href="/scy-to-lcm/" class="text-ocean-400 font-medium hover:underline">SCY to LCM Swim Converter</a> and <a href="/lcm-to-scy/" class="text-ocean-400 font-medium hover:underline">LCM to SCY Swim Converter</a>.
+        </p>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">About Us &amp; Technology Ecosystem</h2>
+          <p class="text-white/80 leading-relaxed mb-4">
+            Built as part of the <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 font-semibold hover:underline">Shahab Dev</a> engineering network, our team specializes in <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">custom software development</a> and algorithm design. We bring the same analytical precision to swimming metrics that we apply when conducting a <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">technical SEO website audit</a> or building specialized engineering converters like our <a href="https://psigtopsia.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">PSI converter</a> and <a href="https://www.determinantsolver.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">matrix calculator</a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">What Makes Us Different</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span class="text-white/80"><strong class="text-white">Event-aware conversions:</strong> Match common equivalents like 500y ↔ 400m and 1650y ↔ 1500m automatically.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span class="text-white/80"><strong class="text-white">Advanced turn model:</strong> Tune per-wall advantages for SCY, SCM, and LCM to reflect your underwater and turn skills.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span class="text-white/80"><strong class="text-white">Clear inputs and outputs:</strong> Choose decimal precision, enter flexible time formats, and copy results with one click.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span class="text-white/80"><strong class="text-white">Pace insights:</strong> See pace per 100y / 100m alongside the converted result for quick training context.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">How Our Model Thinks</h2>
+          <ol class="space-y-3">
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">1</span>
+              <span class="text-white/80 pt-1">Parse the source event and time to determine exact pool course distance.</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">2</span>
+              <span class="text-white/80 pt-1">Estimate how many walls (start + turns) you used based on pool length.</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">3</span>
+              <span class="text-white/80 pt-1">Subtract a per-wall advantage to estimate your true free-water speed.</span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-8 h-8 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">4</span>
+              <span class="text-white/80 pt-1">Project that speed to the target event and re-add the target course's wall gains.</span>
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Leadership &amp; Ownership</h2>
+          <p class="text-white/80 leading-relaxed mb-3">
+            {site} is maintained by <strong class="text-white">Shahab Uddin</strong>, founder of <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">Shahab Dev</a>. You can connect with Shahab on <a href="https://www.linkedin.com/in/shahabuddin38/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">LinkedIn</a> or <a href="https://www.facebook.com/shahab.uddin38" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">Facebook</a> for inquiries regarding software development, SaaS tools, and web algorithms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Independence &amp; Attribution</h2>
+          <p class="text-white/80 leading-relaxed">We are an independent sports analytics tool and are not affiliated with World Aquatics (FINA), USA Swimming, Swim England, or NCAA. {site} is built to be fast, transparent, and useful for everyday training decisions.</p>
+        </section>
+
+        <section class="border-t border-white/10 pt-6">
+          <h2 class="text-2xl font-bold gradient-text mb-4">Say Hello</h2>
+          <p class="text-white/80">Have feedback, a bug, or a feature idea? We'd love to hear it. Reach us directly through our <a href={getLocalizedUrl('/contact-us/', locale)} class="premium-link">contact page</a> or email <a href="mailto:admin@shahabdev.com" class="text-ocean-400 hover:underline">admin@shahabdev.com</a>.</p>
+        </section>
+
+        <RelatedResources />
+      </div>
+    </div>
+  </article>
+</PageLayout>

@@ -1,0 +1,279 @@
+---
+import PageLayout from "@theme/layouts/PageLayout.astro";
+import CalculatorToolsBanner from "@theme/components/CalculatorToolsBanner.astro";
+import RelatedResources from "@theme/components/RelatedResources.astro";
+import { locales, defaultLocale } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+---
+<PageLayout
+  title="Swim Split Calculator"
+  description="Calculate even and negative splits using our swim split calculator. Plan pacing strategies and target lap splits for 200m, 400m, and 1500m races."
+  keywords="swim split calculator, swim pace calculator, lap split calculator, race split planner"
+>
+  <article class="mx-auto max-w-4xl space-y-8">
+    <div class="glass-card p-6 md:p-8 animate-fadeIn">
+      <p class="text-white/80 text-lg leading-relaxed">
+        Smart pacing wins races. Our <strong class="text-white">swim split calculator</strong> breaks any target race time into even splits, negative splits (faster second half), or descending splits so you can plan race strategy or structure training sets. Calculate target lap splits or project pool times across courses using our <a href="/scy-to-lcm/" class="text-ocean-400 font-medium hover:underline">SCY to LCM Swim Converter</a> and compare with <a href="/swim-time-usa/" class="text-ocean-400 font-medium hover:underline">USA Swimming Time Converter</a> cut times.
+      </p>
+    </div>
+
+    <!-- Split Calculator Tool -->
+    <section class="animate-fadeIn" style="animation-delay:0.1s;">
+      <div class="glass-card p-6 md:p-8">
+        <header class="mb-6">
+          <h2 class="text-xl font-semibold text-white">Swim Split Calculator Tool</h2>
+          <p class="text-sm text-white/50 mt-1">Break your target time into per-lap splits</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="splitCourse">Pool course</label>
+              <select id="splitCourse" class="premium-select w-full">
+                <option value="SCY">SCY (25 yards)</option>
+                <option value="SCM" selected>SCM (25 meters)</option>
+                <option value="LCM">LCM (50 meters)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="splitEvent">Event distance</label>
+              <select id="splitEvent" class="premium-select w-full"></select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="splitTime">Target total time</label>
+              <input id="splitTime" type="text" inputmode="decimal" value="2:00.00" placeholder="e.g., 2:05.30" class="premium-input w-full text-xl mono" />
+            </div>
+            <p class="text-xs text-white/40">Formats: <span class="mono text-ocean-400/70">ss.hh</span>, <span class="mono text-ocean-400/70">m:ss.hh</span>, or <span class="mono text-ocean-400/70">h:mm:ss.hh</span></p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="splitMode">Split strategy</label>
+              <select id="splitMode" class="premium-select w-full">
+                <option value="even">Even splits</option>
+                <option value="negative">Negative split (faster 2nd half)</option>
+                <option value="descend">Descending (each lap faster)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="splitDelta">Split delta (seconds per lap)</label>
+              <div class="flex items-center gap-3">
+                <input id="splitDelta" type="range" min="0" max="3" step="0.1" value="0.5" class="premium-slider flex-1" />
+                <div id="splitDeltaVal" class="w-14 text-right mono text-sm text-white/80">0.50s</div>
+              </div>
+              <p class="text-xs text-white/40 mt-1">How much faster each subsequent lap (or second half) should be</p>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+              <button id="copySplits" class="premium-btn" type="button">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                  Copy splits
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Splits Output -->
+        <div class="mt-6">
+          <div class="text-ocean-400 font-semibold text-sm uppercase tracking-wider mb-3">Lap-by-Lap Splits</div>
+          <div id="splitsTable" class="space-y-2">
+            <p class="text-white/50 text-sm">Enter a time to see splits...</p>
+          </div>
+          <div class="mt-4 result-card p-4 text-center">
+            <div class="text-xs text-white/50 mb-1">Total Time</div>
+            <div id="splitTotal" class="text-2xl font-bold text-white mono result-glow">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pacing Strategies -->
+    <section class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.15s;">
+      <h2 class="text-2xl font-bold gradient-text mb-4">Understanding Split Strategies</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+          <h3 class="font-semibold text-white mb-2">Even Splits</h3>
+          <p class="text-sm text-white/70">Every lap at exactly the same pace. The simplest and most sustainable strategy, ideal for longer-distance events like the 800m and 1500m.</p>
+        </div>
+        <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+          <h3 class="font-semibold text-white mb-2">Negative Splits</h3>
+          <p class="text-sm text-white/70">Swim the second half faster than the first. Physiologically efficient — builds aerobic capacity early, then accelerates. Used by elite distance swimmers.</p>
+        </div>
+        <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-gold-500">
+          <h3 class="font-semibold text-white mb-2">Descending</h3>
+          <p class="text-sm text-white/70">Each lap progressively faster. Great for training sets and building race-end speed. The most aggressive pacing strategy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- When to Use -->
+    <section class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.2s;">
+      <h2 class="text-2xl font-bold gradient-text mb-4">When to Use a Split Calculator</h2>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Race planning:</strong> Decide your target split for each 50m or 25m leg before stepping on the blocks.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Training sets:</strong> Give swimmers specific pace targets for descending sets, broken swims, or pace 100s.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Goal setting:</strong> Work backwards from a target time to see what each lap needs to look like.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Post-race analysis:</strong> Compare your actual splits against an ideal pacing model to identify where you gained or lost time.</span></li>
+      </ul>
+    </section>
+
+    <article class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.25s;">
+      <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">How the Split Calculator Works</h2>
+      <ol class="text-white/70 space-y-3 list-none">
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">1</span><span class="pt-0.5">Enter your target total time and select the course and event distance.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">2</span><span class="pt-0.5">We calculate the number of laps based on pool length.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">3</span><span class="pt-0.5">We distribute the total time across laps using your chosen split strategy and the delta slider.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">4</span><span class="pt-0.5">Each lap split and cumulative time is displayed so you can study and copy your pacing chart.</span></li>
+      </ol>
+      <p class="mt-5 text-white/60 border-t border-white/10 pt-5">
+        Looking for digital automation tools? Optimize website search ranking with an <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">AI SEO audit</a>, build authority using our <a href="https://backlink.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">SEO promotion</a> platform, convert images via <a href="https://jpegtosvg.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">SVG conversion</a>, or partner with <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">Shahab Dev</a> for custom software solutions.
+      </p>
+    </article>
+
+    <CalculatorToolsBanner />
+    <RelatedResources />
+  </article>
+
+<script is:inline>
+  const EVENTS = {
+    SCY: [50, 100, 200, 500, 1000, 1650],
+    SCM: [50, 100, 200, 400, 800, 1500],
+    LCM: [50, 100, 200, 400, 800, 1500],
+  };
+  const POOL_LEN = { SCY: 25, SCM: 25, LCM: 50 };
+
+  function parseTimeToSeconds(str) {
+    if (!str || typeof str !== "string") return NaN;
+    const s = str.trim(); if (!s) return NaN;
+    const p = s.split(":").map(x => x.trim());
+    const n = p.map(x => Number(x));
+    if (n.some(x => isNaN(x))) return NaN;
+    if (p.length === 3) return n[0] * 3600 + n[1] * 60 + n[2];
+    if (p.length === 2) return n[0] * 60 + n[1];
+    return n[0];
+  }
+
+  function formatSeconds(t, d = 2) {
+    if (!Number.isFinite(t)) return "—";
+    if (t < 0) return `-${formatSeconds(-t, d)}`;
+    const h = Math.floor(t / 3600), mm = Math.floor((t % 3600) / 60), ss = t % 60;
+    const sF = ss.toFixed(d), [sI, sR] = sF.split("."), tw = String(sI).padStart(2, "0");
+    return h > 0
+      ? `${h}:${String(mm).padStart(2, "0")}:${tw}${d > 0 ? "." + sR : ""}`
+      : `${mm}:${tw}${d > 0 ? "." + sR : ""}`;
+  }
+
+  let course = "SCM", event_ = 200, targetTime = "2:00.00", splitMode = "even", delta = 0.5;
+  const $ = id => document.getElementById(id);
+
+  function eventUnit(c) { return c === "SCY" ? "yd" : "m"; }
+
+  function syncEvents() {
+    const sel = $("splitEvent");
+    const list = EVENTS[course] || [];
+    sel.innerHTML = "";
+    for (const ev of list) {
+      const o = document.createElement("option");
+      o.value = String(ev);
+      o.textContent = `${ev} ${eventUnit(course)}`;
+      if (ev === event_) o.selected = true;
+      sel.appendChild(o);
+    }
+    if (!list.includes(event_)) event_ = list[1] || list[0];
+  }
+
+  function computeSplits() {
+    const totalSec = parseTimeToSeconds(targetTime);
+    const poolLen = POOL_LEN[course];
+    const laps = Math.max(1, Math.round(event_ / poolLen));
+    const container = $("splitsTable");
+
+    $("splitDeltaVal").textContent = `${delta.toFixed(2)}s`;
+
+    if (!Number.isFinite(totalSec) || totalSec <= 0 || laps < 1) {
+      container.innerHTML = '<p class="text-white/50 text-sm">Enter a valid time to see splits...</p>';
+      $("splitTotal").textContent = "—";
+      return;
+    }
+
+    // Calculate splits
+    let splits = [];
+    if (splitMode === "even") {
+      const perLap = totalSec / laps;
+      for (let i = 0; i < laps; i++) splits.push(perLap);
+    } else if (splitMode === "negative") {
+      // First half slower, second half faster
+      const halfIdx = Math.floor(laps / 2);
+      const basePace = totalSec / laps;
+      const slowPace = basePace + (delta / 2);
+      const fastPace = basePace - (delta / 2);
+      for (let i = 0; i < laps; i++) {
+        splits.push(i < halfIdx ? slowPace : fastPace);
+      }
+      // Adjust to match total exactly
+      const sum = splits.reduce((a, b) => a + b, 0);
+      const adj = (totalSec - sum) / laps;
+      splits = splits.map(s => s + adj);
+    } else {
+      // Descending: each lap progressively faster
+      const totalDelta = delta * (laps - 1);
+      const firstLap = totalSec / laps + totalDelta / 2;
+      for (let i = 0; i < laps; i++) {
+        splits.push(firstLap - delta * i);
+      }
+      // Adjust to match total
+      const sum = splits.reduce((a, b) => a + b, 0);
+      const adj = (totalSec - sum) / laps;
+      splits = splits.map(s => s + adj);
+    }
+
+    // Render
+    let html = '<div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-ocean-400 text-xs uppercase tracking-wider border-b border-white/10"><th class="py-2 text-left px-2">Lap</th><th class="py-2 text-left px-2">Distance</th><th class="py-2 text-right px-2">Split</th><th class="py-2 text-right px-2">Cumulative</th></tr></thead><tbody>';
+    let cumulative = 0;
+    const unit = eventUnit(course);
+    for (let i = 0; i < splits.length; i++) {
+      cumulative += splits[i];
+      const dist = (i + 1) * poolLen;
+      html += `<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+        <td class="py-2 px-2 text-white/70">${i + 1}</td>
+        <td class="py-2 px-2 text-white/70">${dist}${unit}</td>
+        <td class="py-2 px-2 text-right mono text-ocean-400 font-medium">${formatSeconds(splits[i], 2)}</td>
+        <td class="py-2 px-2 text-right mono text-white/80">${formatSeconds(cumulative, 2)}</td>
+      </tr>`;
+    }
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+    $("splitTotal").textContent = formatSeconds(cumulative, 2);
+
+    computeSplits._splits = splits;
+  }
+
+  $("splitCourse").addEventListener("change", e => { course = e.target.value; syncEvents(); computeSplits(); });
+  $("splitEvent").addEventListener("change", e => { event_ = Number(e.target.value); computeSplits(); });
+  $("splitTime").addEventListener("input", e => { targetTime = e.target.value; computeSplits(); });
+  $("splitMode").addEventListener("change", e => { splitMode = e.target.value; computeSplits(); });
+  $("splitDelta").addEventListener("input", e => { delta = Number(e.target.value); computeSplits(); });
+  function copyToClipboard(text){const str=String(text);if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(str).catch(function(){fallbackCopy(str);})}else{fallbackCopy(str);}}
+  function fallbackCopy(text){const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";ta.style.top="-9999px";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);}
+  $("copySplits").addEventListener("click", () => {
+    const splits = computeSplits._splits;
+    if (!splits) return;
+    const unit = eventUnit(course);
+    const lines = splits.map((s, i) => `Lap ${i + 1} (${(i + 1) * POOL_LEN[course]}${unit}): ${formatSeconds(s, 2)}`);
+    copyToClipboard(lines.join("\n"));
+    const btn = $("copySplits");
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!</span>';
+    setTimeout(() => { btn.innerHTML = orig; }, 1500);
+  });
+
+  syncEvents();
+  computeSplits();
+</script>
+</PageLayout>

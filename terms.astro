@@ -1,0 +1,75 @@
+---
+import PageLayout from "@theme/layouts/PageLayout.astro";
+import RelatedResources from "@theme/components/RelatedResources.astro";
+import { locales, defaultLocale, getLocaleFromUrl, getLocalizedUrl } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+
+const locale = getLocaleFromUrl(Astro.url);
+const site = "Swim Time Converter";
+const domain = "timeswimconverter.com";
+const updated = "July 23, 2026";
+---
+<PageLayout
+  title="Terms of Service - Time Swim Converter"
+  description="Terms of service for Time Swim Converter by Shahab Dev. Guidelines and terms of service conditions for using our swimming conversion tools."
+  keywords="terms of service, terms of service time swim converter, Shahab Dev terms"
+>
+  <article class="mx-auto max-w-3xl">
+    <header class="mb-6">
+      <div class="text-xs sm:text-sm text-white/50">Last updated: {updated}</div>
+    </header>
+
+    <div class="glass-card">
+      <div class="p-6 sm:p-8 space-y-8 text-white/80">
+        <p class="text-lg leading-relaxed">These <strong class="text-white">terms of service</strong> for Time Swim Converter govern your access to and use of Time Swim Converter ("we", "us", "our"), operated by <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 font-semibold hover:underline">Shahab Dev</a>. By accessing {domain}, you agree to these terms. Read our <a href="/privacy/" class="text-ocean-400 font-semibold hover:underline">Privacy Policy</a> for data protections.</p>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">Terms of Service Overview</h2>
+          <p class="leading-relaxed">{site} provides algorithmic tools to convert swimming times between SCY, SCM, and LCM pool courses, calculate race splits, and analyze per-wall turn advantages. Similar to our other web applications such as our <a href="https://www.mgtolb.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">weight converter</a> and <a href="https://www.bdftcalculator.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">wood calculator</a>, all outputs are mathematical estimates intended for training and guidance only—not official competition entry times.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">2) User Responsibilities</h2>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Use the Site lawfully and responsibly.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Verify converted times with meet referees or coaches before submitting official meet entries.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span>
+              <span>Do not scrape at scale or attempt to disrupt infrastructure security monitored by our <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">technical SEO website audit</a> systems.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">3) Sports Governing Body Disclaimer</h2>
+          <div class="glass-card !bg-gold-500/10 !border-gold-500/30 p-4 !rounded-xl">
+            <p class="leading-relaxed text-white/90">We are an independent software service and are <strong class="text-white">not affiliated with or endorsed by</strong> World Aquatics (FINA), USA Swimming, Swim England, NCAA, or any official sports organization. Official seed times must adhere strictly to respective sanctioning body regulations.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">4) Intellectual Property &amp; Ecosystem</h2>
+          <p class="leading-relaxed">The Site's code, algorithms, and design are owned by <strong class="text-white">Shahab Dev</strong>. We build specialized tools across verticals, including clinic automation with <a href="https://dentalleadcrm.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">Dental CRM</a> and career portals on our <a href="https://jobs.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">job board</a>. You may share individual results for personal use.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold gradient-text mb-4">5) Contact</h2>
+          <p class="leading-relaxed">For legal or terms questions, email <a href="mailto:admin@shahabdev.com" class="text-ocean-400 hover:underline">admin@shahabdev.com</a> or visit our <a href={getLocalizedUrl('/contact-us/', locale)} class="premium-link">contact page</a>.</p>
+        </section>
+
+        <RelatedResources />
+      </div>
+    </div>
+  </article>
+</PageLayout>

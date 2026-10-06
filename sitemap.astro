@@ -1,0 +1,12 @@
+---
+import PageSitemap from '@theme/layouts/Sitemap.astro';
+import { locales, defaultLocale } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+---
+
+<PageSitemap />

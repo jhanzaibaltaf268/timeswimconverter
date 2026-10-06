@@ -1,0 +1,154 @@
+---
+import PageLayout from "@theme/layouts/PageLayout.astro";
+import CalculatorToolsBanner from "@theme/components/CalculatorToolsBanner.astro";
+import RelatedResources from "@theme/components/RelatedResources.astro";
+import { locales, defaultLocale } from '@theme/i18n/utils';
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({
+    params: { lang: locale === defaultLocale ? undefined : locale },
+  }));
+}
+---
+<PageLayout
+  title="LCM to SCY Swim Converter"
+  description="Convert long course meters to short course yards with our LCM to SCY swim converter. Project 50-meter times to 25-yard SCY NCAA recruiting standards."
+  keywords="lcm to scy swim converter, LCM to SCY, 50m to 25yd swim converter, swim time conversion"
+>
+  <article class="mx-auto max-w-4xl space-y-8">
+    <div class="glass-card p-6 md:p-8 animate-fadeIn">
+      <p class="text-white/80 text-lg leading-relaxed">
+        Our <strong class="text-white">LCM to SCY swim converter</strong> translates long course meters (50m pool) swimming times into short course yards (25yd pool) equivalents. Converting from LCM to SCY typically results in faster times because gaining more turn push-offs and underwater glides reduces surface resistance. Project your times or reverse calculate with our <a href="/scy-to-lcm/" class="text-ocean-400 font-medium hover:underline">SCY to LCM Swim Converter</a> and compare against <a href="/swim-time-usa/" class="text-ocean-400 font-medium hover:underline">USA Swimming Time Converter</a> standards.
+      </p>
+    </div>
+
+    <!-- Converter -->
+    <section class="animate-fadeIn" style="animation-delay:0.1s;">
+      <div class="glass-card p-6 md:p-8">
+        <header class="flex items-center justify-between gap-4 mb-6 flex-wrap">
+          <div>
+            <h2 class="text-xl font-semibold text-white">LCM to SCY Swim Converter Tool</h2>
+            <p class="text-sm text-white/50 mt-1">50-metre pool to 25-yard pool</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <label for="decimals" class="text-sm text-white/60 hidden sm:block">Decimals</label>
+            <select id="decimals" class="premium-select"><option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+          </div>
+        </header>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-ocean-400">From course & event</label>
+            <div class="grid grid-cols-2 gap-3">
+              <select id="fromCourse" class="premium-select w-full"><option value="LCM" selected>LCM (50 meters)</option></select>
+              <select id="fromEvent" class="premium-select w-full"></select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="timeIn">Your LCM time</label>
+              <input id="timeIn" type="text" inputmode="decimal" value="1:00.00" placeholder="e.g., 59.50 or 1:05.23" class="premium-input w-full text-xl mono" />
+            </div>
+            <p class="text-xs text-white/40">Formats: <span class="mono text-ocean-400/70">ss.hh</span>, <span class="mono text-ocean-400/70">m:ss.hh</span>, or <span class="mono text-ocean-400/70">h:mm:ss.hh</span></p>
+          </div>
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-ocean-400">To course & event</label>
+            <div class="grid grid-cols-2 gap-3">
+              <select id="toCourse" class="premium-select w-full"><option value="SCY" selected>SCY (25 yards)</option></select>
+              <select id="toEvent" class="premium-select w-full"></select>
+            </div>
+            <label class="inline-flex items-center gap-3 text-sm text-white/70 select-none cursor-pointer group">
+              <input id="matchNominal" type="checkbox" class="premium-checkbox" checked />
+              <span class="group-hover:text-white/90 transition-colors">Match equivalent events (400m → 500y, 1500m → 1650y)</span>
+            </label>
+            <div class="flex items-center gap-3 pt-2">
+              <button id="copyResult" class="premium-btn" type="button"><span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>Copy result</span></button>
+              <button id="clearTime" class="premium-btn-danger" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 glass-card !bg-white/5 p-5 !rounded-xl">
+          <h3 class="font-semibold text-white mb-4">Advanced: Per-wall advantage (seconds)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="glass-card !bg-white/5 p-4 !rounded-xl">
+              <div class="text-xs text-ocean-400 font-medium mb-3">LCM (50 meters)</div>
+              <div class="flex items-center gap-3"><input id="wallLCM" type="range" min="0.2" max="1.0" step="0.01" value="0.25" class="premium-slider flex-1" /><div id="wallLCMVal" class="w-14 text-right mono text-sm text-white/80">0.25s</div></div>
+            </div>
+            <div class="glass-card !bg-white/5 p-4 !rounded-xl">
+              <div class="text-xs text-ocean-400 font-medium mb-3">SCY (25 yards)</div>
+              <div class="flex items-center gap-3"><input id="wallSCY" type="range" min="0.2" max="1.0" step="0.01" value="0.55" class="premium-slider flex-1" /><div id="wallSCYVal" class="w-14 text-right mono text-sm text-white/80">0.55s</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 result-card p-6 text-center">
+          <div class="text-ocean-400 font-semibold text-sm uppercase tracking-wider mb-4">Converted Result</div>
+          <div id="resultTime" class="text-4xl md:text-5xl font-bold text-white mono result-glow">—</div>
+          <div id="resultMeta" class="text-sm text-white/50 mt-2">—</div>
+          <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-5"></div>
+          <div class="flex items-center justify-between px-2 text-sm"><span class="text-white/60">Pace / 100 yd</span><span id="pace100y" class="mono text-ocean-400 font-medium">—</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- When to Use -->
+    <section class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.15s;">
+      <h2 class="text-2xl font-bold gradient-text mb-4">When You'd Convert LCM to SCY</h2>
+      <ul class="space-y-3">
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">International recruits:</strong> Swimmers from Europe, Asia, or Australia competing in LCM pools who want to project how they'd perform in the US collegiate SCY format.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Summer-to-winter planning:</strong> US swimmers returning from a long-course summer season who want to set SCY goals for the upcoming short-course winter season.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-2 h-2 mt-2.5 rounded-full bg-ocean-500"></span><span class="text-white/80"><strong class="text-white">Scholarship evaluations:</strong> College coaches comparing international LCM results against their SCY roster to assess talent.</span></li>
+      </ul>
+    </section>
+
+    <!-- Key Insight -->
+    <section class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.2s;">
+      <h2 class="text-2xl font-bold gradient-text mb-4">Why LCM Times Are Usually Slower</h2>
+      <div class="space-y-4 text-white/80 leading-relaxed">
+        <p>In a 50-metre pool you get <strong class="text-white">half as many walls</strong> per race compared to a 25-yard pool. Each wall provides a powerful push-off and underwater phase that's significantly faster than surface swimming. Fewer walls means more time spent on the surface at lower speed, which is why LCM times are typically slower.</p>
+        <p>When converting LCM to SCY, you're essentially gaining back all those extra walls. The result is a faster time — but exactly how much faster depends on your individual turn and underwater proficiency. Use the sliders above to fine-tune the model to your skills.</p>
+      </div>
+    </section>
+
+    <article class="glass-card p-6 md:p-8 animate-fadeIn" style="animation-delay:0.25s;">
+      <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">How the LCM to SCY Conversion Works</h2>
+      <ol class="text-white/70 space-y-3 list-none">
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">1</span><span class="pt-0.5">Parse your LCM time and event to get the race distance in metres.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">2</span><span class="pt-0.5">Estimate walls for both the 50m source and 25yd target courses.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">3</span><span class="pt-0.5">Strip the LCM wall gains to find your pure free-water speed.</span></li>
+        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">4</span><span class="pt-0.5">Re-apply SCY wall gains and convert the distance from metres to yards for the final time.</span></li>
+      </ol>
+      <p class="mt-5 text-white/60 border-t border-white/10 pt-5">
+        These are estimates — not official conversions. Tune the per-wall sliders for more accurate results. International recruits preparing for NCAA rosters often leverage our <a href="https://jobs.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">tech careers</a> board, perform a <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">website audit</a>, or consult <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">Shahab Dev</a> for software development solutions.
+      </p>
+    </article>
+
+    <CalculatorToolsBanner />
+    <RelatedResources />
+  </article>
+
+<script is:inline>
+  const EVENTS_LCM=[50,100,200,400,800,1500],EVENTS_SCY=[50,100,200,500,1000,1650];
+  const EQUIV={"LCM:400":500,"LCM:800":1000,"LCM:1500":1650};
+  function parseTimeToSeconds(str){if(!str||typeof str!=="string")return NaN;const s=str.trim();if(!s)return NaN;const p=s.split(":").map(x=>x.trim());const n=p.map(x=>Number(x));if(n.some(x=>isNaN(x)))return NaN;if(p.length===3)return n[0]*3600+n[1]*60+n[2];if(p.length===2)return n[0]*60+n[1];return n[0];}
+  function formatSeconds(t,d=2){if(!Number.isFinite(t))return"—";if(t<0)return`-${formatSeconds(-t,d)}`;const h=Math.floor(t/3600),mm=Math.floor((t%3600)/60),ss=t%60,sF=ss.toFixed(d),[sI,sR]=sF.split("."),tw=String(sI).padStart(2,"0");return h>0?`${h}:${String(mm).padStart(2,"0")}:${tw}${d>0?"."+sR:""}`:`${mm}:${tw}${d>0?"."+sR:""}`;}
+  function convertTime(inSec,fromEv,toEv,wLCM,wSCY){if(!Number.isFinite(inSec)||inSec<=0)return NaN;const fD=fromEv,tD=toEv*0.9144;const fW=Math.max(1,Math.round(fD/50)),tW=Math.max(1,Math.round(tD/(25*0.9144)));const fT=Math.max(.01,inSec-fW*wLCM);const spd=fD/fT;return tD/spd+tW*wSCY;}
+
+  let fromEvent=100,toEvent=100,matchNominal=true,timeIn="1:00.00",decimals=2,wLCM=0.25,wSCY=0.55;
+  const $=id=>document.getElementById(id);
+  function syncSel(sel,list,selected,unit){sel.innerHTML="";for(const ev of list){const o=document.createElement("option");o.value=String(ev);o.textContent=`${ev} ${unit}`;if(Number(ev)===Number(selected))o.selected=true;sel.appendChild(o);}}
+  function matchTo(){if(!matchNominal)return;const m=EQUIV[`LCM:${fromEvent}`];if(m){toEvent=m;return;}if(EVENTS_SCY.includes(fromEvent)){toEvent=fromEvent;return;}let best=EVENTS_SCY[0],diff=Infinity;for(const e of EVENTS_SCY){const d=Math.abs(e*0.9144-fromEvent);if(d<diff){best=e;diff=d;}}toEvent=best;}
+  function render(){const sIn=parseTimeToSeconds(timeIn);if(matchNominal)matchTo();syncSel($("fromEvent"),EVENTS_LCM,fromEvent,"m");syncSel($("toEvent"),EVENTS_SCY,toEvent,"yd");const ts=convertTime(sIn,fromEvent,toEvent,wLCM,wSCY);const p100y=Number.isFinite(ts)?ts/(toEvent/100):NaN;
+    $("wallLCMVal").textContent=`${wLCM.toFixed(2)}s`;$("wallSCYVal").textContent=`${wSCY.toFixed(2)}s`;
+    $("resultTime").textContent=Number.isFinite(ts)?formatSeconds(ts,decimals):"—";$("resultMeta").textContent=`${toEvent} yd • SCY (25yd)`;$("pace100y").textContent=Number.isFinite(p100y)?formatSeconds(p100y,decimals):"—";render._last={targetSeconds:ts};}
+
+  $("decimals").addEventListener("change",e=>{decimals=Math.min(Math.max(Number(e.target.value),0),3);render();});
+  $("fromEvent").addEventListener("change",e=>{fromEvent=Number(e.target.value);render();});
+  $("toEvent").addEventListener("change",e=>{toEvent=Number(e.target.value);render();});
+  $("matchNominal").addEventListener("change",e=>{matchNominal=!!e.target.checked;render();});
+  $("timeIn").addEventListener("input",e=>{timeIn=e.target.value;render();});
+  $("wallLCM").addEventListener("input",e=>{wLCM=Number(e.target.value);render();});
+  $("wallSCY").addEventListener("input",e=>{wSCY=Number(e.target.value);render();});
+  function copyToClipboard(text){const str=String(text);if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(str).catch(function(){fallbackCopy(str);})}else{fallbackCopy(str);}}
+  function fallbackCopy(text){const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.left="-9999px";ta.style.top="-9999px";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(ta);}
+  $("copyResult").addEventListener("click",()=>{const tt=(render._last||{}).targetSeconds;if(Number.isFinite(tt)){copyToClipboard(formatSeconds(tt,decimals));const btn=$("copyResult");const orig=btn.innerHTML;btn.innerHTML='<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!</span>';setTimeout(()=>{btn.innerHTML=orig;},1500);}});
+  $("clearTime").addEventListener("click",()=>{timeIn="";$("timeIn").value="";render();});
+  render();
+</script>
+</PageLayout>

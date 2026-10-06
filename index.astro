@@ -1,0 +1,1003 @@
+---
+import IndexLayout, { getStaticPaths as getStaticPathsIndex } from '@theme/layouts/IndexLayout.astro';
+import FAQs from '@theme/components/FAQs.astro';
+import Chart from '@theme/components/Chart.astro';
+import CalculatorToolsBanner from '@theme/components/CalculatorToolsBanner.astro';
+import RelatedResources from '@theme/components/RelatedResources.astro';
+import { getTranslations, type Locale } from '@theme/i18n/utils';
+
+const locale = (Astro.params.lang || 'en') as Locale;
+const t = getTranslations(locale);
+
+export const getStaticPaths = getStaticPathsIndex;
+
+const chartData: any[] = [];
+---
+
+<IndexLayout>
+  <!-- Hero Section -->
+  <div class="text-center mb-10 animate-fadeIn">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text mb-4">
+      {t['Time Swim Converter']}
+    </h1>
+    <p class="text-white/60 text-lg max-w-2xl mx-auto">
+      Free <strong class="text-white">swim time converter</strong> to convert SCY, SCM, and LCM swimming times in real-time. Calculate pool conversions for swimmers, coaches, and recruiters.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+    <!-- Main Converter Section -->
+    <section class="lg:col-span-2 animate-slideInLeft" style="animation-delay: 0.1s;">
+      <div class="glass-card p-6 md:p-8">
+        <!-- Header with Decimals -->
+        <header class="flex items-center justify-between gap-4 mb-6 flex-wrap">
+          <div>
+            <h2 class="text-xl font-semibold text-white">{t['Time Swim Converter']}</h2>
+            <p class="text-sm text-white/50 mt-1">{t['SCY ⇄ SCM ⇄ LCM — event-aware and real-time.']}</p>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label for="decimals" class="text-sm text-white/60 hidden sm:block">{t['Decimals']}</label>
+            <select id="decimals" class="premium-select">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- From -->
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-ocean-400">{t['From course & event']}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <select id="fromCourse" class="premium-select w-full">
+                <option value="SCY">{t['SCY (25 yards)']}</option>
+                <option value="SCM">{t['SCM (25 meters)']}</option>
+                <option value="LCM">{t['LCM (50 meters)']}</option>
+              </select>
+
+              <select id="fromEvent" class="premium-select w-full"></select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-ocean-400 mb-2" for="timeIn">{t['Your time']}</label>
+              <input
+                id="timeIn"
+                type="text"
+                inputmode="decimal"
+                value="1:00.00"
+                placeholder={t['e.g., 59.50 or 1:05.23']}
+                class="premium-input w-full text-xl mono"
+              />
+            </div>
+            <p class="text-xs text-white/40">
+              {t['Formats:']} <span class="mono text-ocean-400/70">{t['ss.hh']}</span>, <span class="mono text-ocean-400/70">{t['m:ss.hh']}</span>, {t['or']} <span class="mono text-ocean-400/70">{t['h:mm:ss.hh']}</span>
+            </p>
+          </div>
+
+          <!-- To -->
+          <div class="space-y-4">
+            <label class="block text-sm font-medium text-ocean-400">{t['To course & event']}</label>
+            <div class="grid grid-cols-2 gap-3">
+              <select id="toCourse" class="premium-select w-full">
+                <option value="SCY">{t['SCY (25 yards)']}</option>
+                <option value="SCM">{t['SCM (25 meters)']}</option>
+                <option value="LCM">{t['LCM (50 meters)']}</option>
+              </select>
+
+              <select id="toEvent" class="premium-select w-full"></select>
+            </div>
+
+            <label class="inline-flex items-center gap-3 text-sm text-white/70 select-none cursor-pointer group">
+              <input id="matchNominal" type="checkbox" class="premium-checkbox" />
+              <span class="group-hover:text-white/90 transition-colors">Match equivalent events (500y to 400m, 1650y to 1500m)</span>
+            </label>
+
+            <div class="flex items-center gap-3 pt-2">
+              <button id="copyResult" class="premium-btn" type="button">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                  {t['Copy result']}
+                </span>
+              </button>
+              <button id="clearTime" class="premium-btn-danger" type="button">
+                {t['Clear']}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Settings -->
+        <div class="mt-8 glass-card !bg-white/5 p-5 !rounded-xl">
+          <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+            <h3 class="font-semibold text-white">{t['Advanced: Per-wall advantage (seconds)']}</h3>
+            <span class="text-xs text-white/50">{t['Adjust to match your turns & underwater skills']}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-card !bg-white/5 p-4 !rounded-xl">
+              <div class="text-xs text-ocean-400 font-medium mb-3">{t['SCY (25 yards)']}</div>
+              <div class="flex items-center gap-3">
+                <input id="wallSCY" type="range" min="0.2" max="1.0" step="0.01" value="0.55" class="premium-slider flex-1" />
+                <div id="wallSCYVal" class="w-14 text-right mono text-sm text-white/80">0.55s</div>
+              </div>
+            </div>
+
+            <div class="glass-card !bg-white/5 p-4 !rounded-xl">
+              <div class="text-xs text-ocean-400 font-medium mb-3">{t['SCM (25 meters)']}</div>
+              <div class="flex items-center gap-3">
+                <input id="wallSCM" type="range" min="0.2" max="1.0" step="0.01" value="0.40" class="premium-slider flex-1" />
+                <div id="wallSCMVal" class="w-14 text-right mono text-sm text-white/80">0.40s</div>
+              </div>
+            </div>
+
+            <div class="glass-card !bg-white/5 p-4 !rounded-xl">
+              <div class="text-xs text-ocean-400 font-medium mb-3">{t['LCM (50 meters)']}</div>
+              <div class="flex items-center gap-3">
+                <input id="wallLCM" type="range" min="0.2" max="1.0" step="0.01" value="0.25" class="premium-slider flex-1" />
+                <div id="wallLCMVal" class="w-14 text-right mono text-sm text-white/80">0.25s</div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-xs text-white/40 mt-4 leading-relaxed">
+            {t['Model: remove wall gains from your source swim to estimate free-water speed, then reapply gains for the target course. Outputs are estimates.']}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sidebar - Result + Pool Visualization -->
+    <aside class="space-y-6 animate-slideInRight" style="animation-delay: 0.2s;">
+      <!-- Result Card -->
+      <div class="result-card p-6 text-center">
+        <div class="text-ocean-400 font-semibold text-sm uppercase tracking-wider mb-4">{t['Converted Result']}</div>
+        <div id="resultTime" class="text-4xl md:text-5xl font-bold text-white mono result-glow">—</div>
+        <div id="resultMeta" class="text-sm text-white/50 mt-2">—</div>
+        
+        <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-5"></div>
+        
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center justify-between px-2">
+            <span class="text-white/60">{t['Pace / 100 m']}</span>
+            <span id="pace100m" class="mono text-ocean-400 font-medium">—</span>
+          </div>
+          <div class="flex items-center justify-between px-2">
+            <span class="text-white/60">{t['Pace / 100 yd']}</span>
+            <span id="pace100y" class="mono text-ocean-400 font-medium">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pool Visualization - Enhanced Premium Design -->
+      <div class="glass-card p-5 overflow-hidden">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-ocean-400 font-semibold text-sm uppercase tracking-wider">Pool Visualization</div>
+          <div id="poolCourseLabel" class="text-xs text-white/50 mono bg-white/5 px-2 py-1 rounded">SCY to LCM</div>
+        </div>
+        
+        <!-- Pool Animation Container -->
+        <div class="relative bg-gradient-to-b from-ocean-900/50 to-ocean-950/80 rounded-xl p-4 border border-ocean-700/30">
+          <!-- Water Effect Overlay -->
+          <div class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+            <div class="water-ripple"></div>
+          </div>
+          
+          <!-- Pool Lanes with Swimmer -->
+          <div id="poolViz" class="relative space-y-1">
+            <div class="pool-lane-premium h-8 relative overflow-hidden">
+              <div id="swimmerPosition" class="absolute top-1/2 -translate-y-1/2 transition-all duration-700 ease-out" style="left: 10%;">
+                <div class="relative">
+                  <div class="swimmer-glow"></div>
+                  <svg class="w-6 h-6 text-ocean-300 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="3" r="2.5"/>
+                    <path d="M4 18c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-1l-4-1.5v-1l4-2V9c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3.5l4 2v1l-4 1.5v1H6c-1.1 0-2-.9-2-2v1z"/>
+                  </svg>
+                </div>
+              </div>
+              <!-- Lane markers -->
+              <div class="absolute inset-0 flex items-center justify-between px-2 pointer-events-none">
+                <div class="w-1 h-full bg-gradient-to-b from-ocean-400/50 via-ocean-400/20 to-ocean-400/50"></div>
+                <div class="flex-1 border-b-2 border-dashed border-white/10 mx-2"></div>
+                <div class="w-1 h-full bg-gradient-to-b from-ocean-400/50 via-ocean-400/20 to-ocean-400/50"></div>
+              </div>
+            </div>
+            <div class="pool-lane-premium h-8"></div>
+            <div class="pool-lane-premium h-8"></div>
+          </div>
+          
+          <!-- Pool Distance Markers -->
+          <div class="flex justify-between mt-4 text-xs text-white/60 mono relative z-10">
+            <div class="flex flex-col items-center">
+              <div class="w-0.5 h-3 bg-ocean-500/50 mb-1"></div>
+              <span>0</span>
+            </div>
+            <div id="poolDistanceInfo" class="text-center">
+              <span class="text-ocean-400 font-medium" id="poolTotalLaps">4 laps</span>
+              <span class="text-white/40 mx-1">•</span>
+              <span id="poolTotalDist">100m</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-0.5 h-3 bg-ocean-500/50 mb-1"></div>
+              <span id="poolLength">25yd</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pool Stats -->
+        <div class="grid grid-cols-2 gap-3 mt-4">
+          <div class="bg-white/5 rounded-lg p-3 text-center">
+            <div class="text-xs text-white/50 mb-1">Walls</div>
+            <div id="poolWalls" class="text-lg font-bold text-ocean-400 mono">—</div>
+          </div>
+          <div class="bg-white/5 rounded-lg p-3 text-center">
+            <div class="text-xs text-white/50 mb-1">Speed</div>
+            <div id="poolSpeed" class="text-lg font-bold text-ocean-400 mono">—</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Full Width Quick Reference -->
+  <div class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.25s;">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold gradient-text">{t['Quick Reference']}</h3>
+      <div class="text-xs text-white/40 hidden md:block">Conversion guidelines</div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-ocean-400 text-lg">→</span>
+          <span class="mono text-white font-semibold">{t['SCY→LCM:']}</span>
+        </div>
+        <p class="text-sm text-white/60">{t['typically adds more time (fewer walls).']}</p>
+      </div>
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-ocean-400 text-lg">→</span>
+          <span class="mono text-white font-semibold">{t['SCY→SCM:']}</span>
+        </div>
+        <p class="text-sm text-white/60">{t['smaller increase vs LCM.']}</p>
+      </div>
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-ocean-400 text-lg">→</span>
+          <span class="mono text-white font-semibold">{t['LCM→SCY:']}</span>
+        </div>
+        <p class="text-sm text-white/60">{t['often faster due to more walls.']}</p>
+      </div>
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-gold-500">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-gold-400 text-lg">★</span>
+          <span class="text-white font-semibold">Pro Tip</span>
+        </div>
+        <p class="text-sm text-white/60">{t['Tune sliders to match your turn advantage.']}</p>
+      </div>
+    </div>
+    <p class="mt-6 text-xs text-white/40 text-center border-t border-white/10 pt-4">{t['These are estimates, not official conversions.']}</p>
+  </div>
+
+  <!-- Time Swim Converter Calculators Section -->
+  <div class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.28s;">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold gradient-text">Time Swim Converter Calculators</h3>
+      <div class="text-xs text-white/40 hidden md:block">Dedicated tools for specific conversions</div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- UK -->
+      <a href="/uk-swim-converter/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21V3h18v18H3zm3-3h12M6 9h12M6 15h12"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">UK Converter</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">SCM ⇄ LCM for UK pool formats & Swim England events.</p>
+      </a>
+      <!-- USA -->
+      <a href="/swim-time-usa/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18M12 3v18M19 3v18M3 7h18M3 12h18M3 17h18"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">USA Converter</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">SCY ⇄ LCM for NCAA, USA Swimming & recruiting.</p>
+      </a>
+      <!-- LCM to SCY -->
+      <a href="/lcm-to-scy/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">LCM  to SCY</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">Long course metres to short course yards.</p>
+      </a>
+      <!-- SCM to SCY -->
+      <a href="/scm-to-scy/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12M8 12h12M8 17h12M4 7h.01M4 12h.01M4 17h.01"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">SCM to SCY</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">Short course metres to short course yards.</p>
+      </a>
+      <!-- SCY to LCM -->
+      <a href="/scy-to-lcm/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">SCY to LCM</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">Short course yards to Olympic long course.</p>
+      </a>
+      <!-- Split Calculator -->
+      <a href="/split-calculator/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-gold-500/20 border border-gold-500/30 flex items-center justify-center group-hover:bg-gold-500/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-gold-300 transition-colors">Split Calculator</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">Even, negative & descending lap splits.</p>
+      </a>
+      <!-- Yards to Meters -->
+      <a href="/yards-to-meters/" class="glass-card !bg-white/5 p-4 !rounded-xl hover:!bg-white/10 transition-all duration-300 group hover:scale-[1.02] hover:shadow-lg hover:shadow-ocean-500/10 block no-underline">
+        <div class="flex items-center gap-3 mb-2">
+          <div class="w-10 h-10 rounded-lg bg-ocean-600/20 border border-ocean-500/30 flex items-center justify-center group-hover:bg-ocean-600/30 transition-colors flex-shrink-0">
+            <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16v16H4zM4 12h16M12 4v16"/></svg>
+          </div>
+          <div class="font-semibold text-white text-sm group-hover:text-ocean-300 transition-colors">Yards to Meters</div>
+        </div>
+        <p class="text-xs text-white/50 leading-relaxed">The fundamental yards-to-metres conversion.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- How It Works Section -->
+  <article class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.3s;">
+    <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">{t['How the Swim Time Converter Works']}</h2>
+    <ol class="text-white/70 space-y-3 list-none">
+      <li class="flex items-start gap-3">
+        <span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">1</span>
+        <span class="pt-0.5">{t['We parse your source time and event to get distance and course.']}</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">2</span>
+        <span class="pt-0.5">{t['We estimate the number of walls (start + turns) from pool length and distance.']}</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">3</span>
+        <span class="pt-0.5">{t['We subtract a per-wall advantage (adjustable) to estimate your free-water speed (m/s).']}</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="flex-shrink-0 w-7 h-7 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-sm font-bold">4</span>
+        <span class="pt-0.5">We project that speed to the target event and add the target course's wall gains.</span>
+      </li>
+    </ol>
+    <p class="mt-5 text-white/60 border-t border-white/10 pt-5">{t['Because turns, push-offs, and underwater phases are highly individual, use the sliders to match your profile for better estimates.']}</p>
+  </article>
+
+  <!-- Section: How to Convert Time to Distance in Swimming -->
+  <article class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.35s;">
+    <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">How to Convert Time to Distance in Swimming</h2>
+    <p class="text-white/70 mb-6">Understanding the relationship between <strong class="text-white">time</strong>, <strong class="text-white">distance</strong>, and <strong class="text-white">speed</strong> is essential for training, race planning, and performance analysis. Here's the core formula every swimmer should know.</p>
+
+    <!-- Formula Triangle Visual -->
+    <div class="flex justify-center mb-6">
+      <svg viewBox="0 0 320 210" class="w-full max-w-xs" style="filter: drop-shadow(0 0 12px rgba(56,189,248,0.12));">
+        <polygon points="160,18 28,180 292,180" fill="none" stroke="rgba(56,189,248,0.45)" stroke-width="2"/>
+        <line x1="160" y1="18" x2="160" y2="180" stroke="rgba(56,189,248,0.15)" stroke-width="1" stroke-dasharray="4"/>
+        <text x="160" y="60" text-anchor="middle" fill="#38bdf8" font-size="16" font-weight="700">Distance</text>
+        <text x="78" y="168" text-anchor="middle" fill="#f0c674" font-size="14" font-weight="600">Speed</text>
+        <text x="242" y="168" text-anchor="middle" fill="#f0c674" font-size="14" font-weight="600">Time</text>
+        <text x="160" y="118" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="24" font-weight="700">×</text>
+        <text x="160" y="200" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-size="10">Cover what you want → the other two give the formula</text>
+      </svg>
+    </div>
+
+    <!-- 3 Formula Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="glass-card !bg-ocean-600/10 p-4 !rounded-xl border border-ocean-500/30 text-center">
+        <div class="w-11 h-11 mx-auto mb-2 rounded-full bg-ocean-600/20 border-2 border-ocean-500/50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </div>
+        <div class="text-sm font-bold text-white">Distance</div>
+        <div class="text-xs text-ocean-400 mono font-semibold mt-1">= Speed × Time</div>
+      </div>
+      <div class="glass-card !bg-ocean-600/10 p-4 !rounded-xl border border-ocean-500/30 text-center">
+        <div class="w-11 h-11 mx-auto mb-2 rounded-full bg-ocean-600/20 border-2 border-ocean-500/50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div class="text-sm font-bold text-white">Speed</div>
+        <div class="text-xs text-ocean-400 mono font-semibold mt-1">= Distance ÷ Time</div>
+      </div>
+      <div class="glass-card !bg-ocean-600/10 p-4 !rounded-xl border border-ocean-500/30 text-center">
+        <div class="w-11 h-11 mx-auto mb-2 rounded-full bg-ocean-600/20 border-2 border-ocean-500/50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="text-sm font-bold text-white">Time</div>
+        <div class="text-xs text-ocean-400 mono font-semibold mt-1">= Distance ÷ Speed</div>
+      </div>
+    </div>
+
+    <!-- Pace vs Speed -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-ocean-500">
+        <div class="flex items-center gap-2 mb-2">
+          <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="font-semibold text-white">Pace</span>
+        </div>
+        <p class="text-xs text-white/60 mb-2">Time per unit distance. Expressed as <strong class="text-white/80">time per 100m</strong>.</p>
+        <div class="bg-white/5 rounded-lg p-2 mono text-xs text-center"><span class="text-ocean-400">Pace</span> = Total Time ÷ (Distance ÷ 100)</div>
+        <p class="text-xs text-white/40 mt-1">Example: 2:00 for 200m → 1:00/100m</p>
+      </div>
+      <div class="glass-card !bg-white/5 p-4 !rounded-xl border-l-2 border-gold-500">
+        <div class="flex items-center gap-2 mb-2">
+          <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="font-semibold text-white">Speed</span>
+        </div>
+        <p class="text-xs text-white/60 mb-2">Distance per unit time. Expressed in <strong class="text-white/80">metres per second (m/s)</strong>.</p>
+        <div class="bg-white/5 rounded-lg p-2 mono text-xs text-center"><span class="text-gold-400">Speed</span> = Distance (m) ÷ Time (s)</div>
+        <p class="text-xs text-white/40 mt-1">Example: 100m in 60s → 1.667 m/s</p>
+      </div>
+    </div>
+
+    <!-- Worked Example -->
+    <div class="glass-card !bg-white/5 p-4 !rounded-xl mb-6">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-6 h-6 rounded-full bg-ocean-600/30 border border-ocean-500/50 flex items-center justify-center text-ocean-400 text-xs font-bold">★</span>
+        <h3 class="font-semibold text-white text-sm">Worked Example: "I swam for 30 min at 1:30/100m pace. How far?"</h3>
+      </div>
+      <div class="space-y-1.5 text-xs text-white/70 ml-8">
+        <p><strong class="text-white">1.</strong> Pace → Speed: 1:30 = 90s per 100m → Speed = 100 ÷ 90 = <span class="mono text-ocean-400">1.111 m/s</span></p>
+        <p><strong class="text-white">2.</strong> Total time = 30 min = <span class="mono text-ocean-400">1,800 s</span></p>
+        <p><strong class="text-white">3.</strong> Distance = 1.111 × 1,800 = <span class="mono text-ocean-400 font-bold">2,000 metres</span></p>
+      </div>
+      <div class="mt-3 ml-8">
+        <div class="flex items-center gap-1 text-xs text-white/30 mb-0.5"><span>0m</span><span class="flex-1"></span><span>1,000m</span><span class="flex-1"></span><span>2,000m</span></div>
+        <div class="h-2.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full rounded-full bg-gradient-to-r from-ocean-500 to-ocean-400" style="width:100%"></div></div>
+      </div>
+    </div>
+
+    <!-- Speed Reference Table -->
+    <h3 class="text-sm font-semibold text-white mb-3">Typical Swimming Speeds</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead><tr class="text-ocean-400 uppercase tracking-wider border-b border-white/10"><th class="py-1.5 text-left px-3">Level</th><th class="py-1.5 text-right px-3">Speed (m/s)</th><th class="py-1.5 text-right px-3">Pace /100m</th><th class="py-1.5 text-right px-3">30-min distance</th></tr></thead>
+        <tbody class="text-white/60">
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3">Beginner</td><td class="py-1.5 px-3 text-right mono">0.7 – 0.9</td><td class="py-1.5 px-3 text-right mono">1:51 – 2:23</td><td class="py-1.5 px-3 text-right mono">~1,260 – 1,620 m</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3">Intermediate</td><td class="py-1.5 px-3 text-right mono">1.0 – 1.3</td><td class="py-1.5 px-3 text-right mono">1:17 – 1:40</td><td class="py-1.5 px-3 text-right mono">~1,800 – 2,340 m</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3">Competitive</td><td class="py-1.5 px-3 text-right mono">1.4 – 1.7</td><td class="py-1.5 px-3 text-right mono">0:59 – 1:11</td><td class="py-1.5 px-3 text-right mono">~2,520 – 3,060 m</td></tr>
+          <tr><td class="py-1.5 px-3">Elite / Olympic</td><td class="py-1.5 px-3 text-right mono">1.8 – 2.2</td><td class="py-1.5 px-3 text-right mono">0:45 – 0:56</td><td class="py-1.5 px-3 text-right mono">~3,240 – 3,960 m</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-white/30 mt-2">Speeds are approximate for freestyle. Sprints are faster; distance events maintain lower speeds sustainably.</p>
+  </article>
+
+  <!-- Section: Swim Time Converter 25 Yards to Meters USA -->
+  <article class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.4s;">
+    <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">Swim Time Converter — 25 Yards to Meters (USA)</h2>
+    <p class="text-white/70 mb-6">In the US, most pools are <strong class="text-white">25 yards (22.86 m)</strong> while international standards use <strong class="text-white">25 metres</strong>. Each SCM lap is ~2.14 m longer — your times will be slightly slower with the same effort.</p>
+
+    <!-- Pool Length Comparison Bars -->
+    <div class="space-y-3 mb-6">
+      <div>
+        <div class="flex items-center justify-between text-xs text-white/50 mb-1">
+          <span class="text-ocean-400 font-semibold">SCY — 25 yards</span><span class="mono">22.86 m</span>
+        </div>
+        <div class="h-8 rounded-lg bg-white/5 border border-ocean-500/20 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-ocean-600/30 to-ocean-500/15 rounded-lg flex items-center px-3" style="width:91.44%">
+            <svg class="w-4 h-4 text-ocean-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18M12 3v18M19 3v18M3 7h18M3 12h18M3 17h18"/></svg>
+            <span class="text-xs font-semibold text-ocean-300">USA Standard</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between text-xs text-white/50 mb-1">
+          <span class="text-gold-400 font-semibold">SCM — 25 metres</span><span class="mono">25.00 m</span>
+        </div>
+        <div class="h-8 rounded-lg bg-white/5 border border-gold-500/20 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-gold-600/20 to-gold-500/10 rounded-lg flex items-center px-3" style="width:100%">
+            <svg class="w-4 h-4 text-gold-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21V3h18v18H3zm3-3h12M6 9h12M6 15h12"/></svg>
+            <span class="text-xs font-semibold text-gold-300">International Standard</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-white/30 text-center">Bars are proportional. Each SCM lap is <strong class="text-white/50">2.14 m (~7 ft) longer</strong> than an SCY lap.</p>
+    </div>
+
+    <!-- Why it matters -->
+    <div class="glass-card !bg-white/5 p-4 !rounded-xl mb-6">
+      <h3 class="text-sm font-semibold text-white mb-2">Why This Matters for US Swimmers</h3>
+      <ul class="text-xs text-white/60 space-y-1.5">
+        <li class="flex items-start gap-2"><span class="text-ocean-400 mt-0.5">•</span>High school & NCAA competition use 25-yard pools — but international meets are metric.</li>
+        <li class="flex items-start gap-2"><span class="text-ocean-400 mt-0.5">•</span>College coaches compare recruits' SCM times against SCY rosters.</li>
+        <li class="flex items-start gap-2"><span class="text-ocean-400 mt-0.5">•</span>Wall advantages differ slightly because push-off glide distance scales with pool length.</li>
+      </ul>
+    </div>
+
+    <!-- Event Equivalents Table -->
+    <h3 class="text-sm font-semibold text-white mb-3">Event Equivalents: SCY → SCM</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead><tr class="text-ocean-400 uppercase tracking-wider border-b border-white/10"><th class="py-1.5 text-left px-3">SCY Event</th><th class="py-1.5 text-left px-3">SCM Equivalent</th><th class="py-1.5 text-left px-3">Notes</th></tr></thead>
+        <tbody class="text-white/60">
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3 mono">50 yd</td><td class="py-1.5 px-3 mono">50 m</td><td class="py-1.5 px-3">Same nominal</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3 mono">100 yd</td><td class="py-1.5 px-3 mono">100 m</td><td class="py-1.5 px-3">Same nominal</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3 mono">200 yd</td><td class="py-1.5 px-3 mono">200 m</td><td class="py-1.5 px-3">Same nominal</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3 mono">500 yd</td><td class="py-1.5 px-3 mono text-ocean-400">400 m</td><td class="py-1.5 px-3">Standard equivalent</td></tr>
+          <tr class="border-b border-white/5"><td class="py-1.5 px-3 mono">1000 yd</td><td class="py-1.5 px-3 mono text-ocean-400">800 m</td><td class="py-1.5 px-3">Standard equivalent</td></tr>
+          <tr><td class="py-1.5 px-3 mono">1650 yd</td><td class="py-1.5 px-3 mono text-ocean-400">1500 m</td><td class="py-1.5 px-3">"The mile"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-white/30 mt-2">Use the converter above with SCY → SCM selected to convert your times with wall-advantage adjustments.</p>
+  </article>
+
+  <!-- Section: Swim Time Converter 50 Yards to Meters -->
+  <article class="glass-card mt-8 p-6 md:p-8 animate-fadeIn" style="animation-delay: 0.45s;">
+    <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">Swim Time Converter — 50 Yards to Meters</h2>
+    <p class="text-white/70 mb-6">A <strong class="text-white">50-yard pool (45.72 m)</strong> is rare but exists at some US university facilities and Masters meets. Comparing 50-yard times against international 50-metre or 25-metre standards requires accounting for both the distance and wall-turn differences.</p>
+
+    <!-- 4-Pool Comparison Bars -->
+    <div class="space-y-2.5 mb-6">
+      <div>
+        <div class="flex items-center justify-between text-xs text-white/40 mb-0.5"><span>SCY — 25 yd</span><span class="mono">22.86 m</span></div>
+        <div class="h-6 rounded-lg bg-white/5 border border-white/10 overflow-hidden"><div class="h-full bg-white/5 rounded-lg flex items-center px-2" style="width:45.72%"><span class="text-xs text-white/50">25 yd</span></div></div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between text-xs text-ocean-400 mb-0.5 font-semibold"><span>50-yard pool</span><span class="mono">45.72 m</span></div>
+        <div class="h-6 rounded-lg bg-white/5 border border-ocean-500/30 overflow-hidden"><div class="h-full bg-gradient-to-r from-ocean-600/25 to-ocean-500/10 rounded-lg flex items-center px-2" style="width:91.44%"><span class="text-xs text-ocean-300 font-semibold">50 yd</span></div></div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between text-xs text-white/40 mb-0.5"><span>SCM — 25 m</span><span class="mono">25.00 m</span></div>
+        <div class="h-6 rounded-lg bg-white/5 border border-white/10 overflow-hidden"><div class="h-full bg-white/5 rounded-lg flex items-center px-2" style="width:50%"><span class="text-xs text-white/50">25 m</span></div></div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between text-xs text-gold-400 mb-0.5 font-semibold"><span>LCM — 50 m (Olympic)</span><span class="mono">50.00 m</span></div>
+        <div class="h-6 rounded-lg bg-white/5 border border-gold-500/30 overflow-hidden"><div class="h-full bg-gradient-to-r from-gold-600/20 to-gold-500/10 rounded-lg flex items-center px-2" style="width:100%"><span class="text-xs text-gold-300 font-semibold">50 m</span></div></div>
+      </div>
+      <p class="text-xs text-white/30 text-center">A 50-yard pool is <strong class="text-white/50">4.28 m shorter</strong> per lap than a 50-metre Olympic pool.</p>
+    </div>
+
+    <!-- Wall Count Comparison Cards -->
+    <h3 class="text-sm font-semibold text-white mb-3">Walls Per 200 Race</h3>
+    <div class="grid grid-cols-3 gap-3 mb-6">
+      <div class="glass-card !bg-ocean-600/10 p-3 !rounded-xl border border-ocean-500/30 text-center">
+        <div class="w-10 h-10 mx-auto mb-1.5 rounded-full bg-ocean-600/20 border-2 border-ocean-500/50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-ocean-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </div>
+        <div class="text-xs font-bold text-white">50-yd Pool</div>
+        <div class="text-xl font-bold text-ocean-400 mono">4</div>
+        <div class="text-xs text-white/30">walls</div>
+      </div>
+      <div class="glass-card !bg-gold-500/10 p-3 !rounded-xl border border-gold-500/30 text-center">
+        <div class="w-10 h-10 mx-auto mb-1.5 rounded-full bg-gold-500/20 border-2 border-gold-500/50 flex items-center justify-center">
+          <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </div>
+        <div class="text-xs font-bold text-white">50-m Pool</div>
+        <div class="text-xl font-bold text-gold-400 mono">4</div>
+        <div class="text-xs text-white/30">walls</div>
+      </div>
+      <div class="glass-card !bg-white/5 p-3 !rounded-xl border border-white/10 text-center">
+        <div class="w-10 h-10 mx-auto mb-1.5 rounded-full bg-white/10 border-2 border-white/20 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </div>
+        <div class="text-xs font-bold text-white">25-m Pool</div>
+        <div class="text-xl font-bold text-white mono">8</div>
+        <div class="text-xs text-white/30">walls</div>
+      </div>
+    </div>
+    <p class="text-xs text-white/30">50-yd and 50-m pools have the same wall count, but 50-yd laps are shorter — resulting in faster times. A 25-m pool doubles the walls, giving an even bigger advantage from push-offs. Use the converter above to adjust for these differences.</p>
+    
+    <div class="mt-6 pt-4 border-t border-white/10 text-xs text-white/60 space-y-2">
+      <p>
+        Whether you are evaluating swim race splits or optimizing your digital workflow, specialized calculations bring clarity. Explore our partner platforms for <a href="https://www.instantseoscan.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">technical SEO</a> insights, build authority using our <a href="https://backlink.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">backlink platform</a>, convert graphics with our <a href="https://jpegtosvg.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">vector converter</a>, or consult our <a href="https://www.shahabdev.com/" target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">custom software development</a> team at Shahab Dev.
+      </p>
+    </div>
+  </article>
+
+<script define:vars={{ t }}>
+  const clamp = (n, min, max) => Math.min(Math.max(n, min), max);
+
+  function parseTimeToSeconds(str) {
+    if (!str || typeof str !== "string") return NaN;
+    const s = str.trim();
+    if (!s) return NaN;
+    const parts = s.split(":").map((p) => p.trim());
+    const nums = parts.map((p) => Number(p));
+    if (nums.some((n) => Number.isNaN(n))) return NaN;
+    let sec = 0;
+    if (parts.length === 3) sec = nums[0] * 3600 + nums[1] * 60 + nums[2];
+    else if (parts.length === 2) sec = nums[0] * 60 + nums[1];
+    else sec = nums[0];
+    return sec;
+  }
+
+  function formatSeconds(t, decimals = 2) {
+    if (!Number.isFinite(t)) return "—";
+    if (t < 0) return `-${formatSeconds(-t, decimals)}`;
+    const h = Math.floor(t / 3600);
+    const mm = Math.floor((t % 3600) / 60);
+    const ss = t % 60;
+    const sFixed = ss.toFixed(decimals);
+    const [sInt, sFrac] = sFixed.split(".");
+    const two = String(sInt).padStart(2, "0");
+    return h > 0
+      ? `${h}:${String(mm).padStart(2, "0")}:${two}${decimals > 0 ? "." + sFrac : ""}`
+      : `${mm}:${two}${decimals > 0 ? "." + sFrac : ""}`;
+  }
+
+  const fmtNum = (n, max = 4) =>
+    Number.isFinite(n)
+      ? new Intl.NumberFormat("en-US", { maximumFractionDigits: max }).format(n)
+      : "—";
+
+  const EVENTS = {
+    SCY: [50, 100, 200, 500, 1000, 1650],
+    SCM: [50, 100, 200, 400, 800, 1500],
+    LCM: [50, 100, 200, 400, 800, 1500],
+  };
+
+  const EQUIV = {
+    "SCY:500": { SCM: 400, LCM: 400 },
+    "SCY:1000": { SCM: 800, LCM: 800 },
+    "SCY:1650": { SCM: 1500, LCM: 1500 },
+    "SCM:400": { SCY: 500, LCM: 400 },
+    "SCM:800": { SCY: 1000, LCM: 800 },
+    "SCM:1500": { SCY: 1650, LCM: 1500 },
+    "LCM:400": { SCY: 500, SCM: 400 },
+    "LCM:800": { SCY: 1000, SCM: 800 },
+    "LCM:1500": { SCY: 1650, SCM: 1500 },
+  };
+
+  function eventDistanceMeters(course, nominal) {
+    return course === "SCY" ? nominal * 0.9144 : nominal;
+  }
+
+  function convertTime({ fromCourse, toCourse, fromEvent, toEvent, inputSeconds, wallGains }) {
+    if (!Number.isFinite(inputSeconds) || inputSeconds <= 0) return NaN;
+
+    const COUR = {
+      SCY: { poolLenM: 25 * 0.9144, wall: wallGains.SCY },
+      SCM: { poolLenM: 25, wall: wallGains.SCM },
+      LCM: { poolLenM: 50, wall: wallGains.LCM },
+    };
+
+    const fromDistM = eventDistanceMeters(fromCourse, fromEvent);
+    const toDistM = eventDistanceMeters(toCourse, toEvent);
+
+    const fromWalls = Math.max(1, Math.round(fromDistM / COUR[fromCourse].poolLenM));
+    const toWalls = Math.max(1, Math.round(toDistM / COUR[toCourse].poolLenM));
+
+    const freeTime = Math.max(0.01, inputSeconds - fromWalls * COUR[fromCourse].wall);
+    const freeSpeed = fromDistM / freeTime;
+
+    const targetFreeTime = toDistM / freeSpeed;
+    return targetFreeTime + toWalls * COUR[toCourse].wall;
+  }
+
+  function copyToClipboard(text) {
+    const str = String(text);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(str).catch(function() { fallbackCopy(str); });
+    } else {
+      fallbackCopy(str);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    ta.style.top = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand("copy"); } catch {}
+    document.body.removeChild(ta);
+  }
+
+  let fromCourse = "SCY";
+  let toCourse = "LCM";
+  let fromEvent = 100;
+  let toEvent = 100;
+  let matchNominal = true;
+
+  let timeIn = "1:00.00";
+  let secondsIn = 60;
+
+  let decimals = 2;
+  let wallGains = { SCY: 0.55, SCM: 0.4, LCM: 0.25 };
+
+  const $decimals = document.getElementById("decimals");
+  const $fromCourse = document.getElementById("fromCourse");
+  const $toCourse = document.getElementById("toCourse");
+  const $fromEvent = document.getElementById("fromEvent");
+  const $toEvent = document.getElementById("toEvent");
+  const $matchNominal = document.getElementById("matchNominal");
+  const $timeIn = document.getElementById("timeIn");
+
+  const $copyResult = document.getElementById("copyResult");
+  const $clearTime = document.getElementById("clearTime");
+
+  const $wallSCY = document.getElementById("wallSCY");
+  const $wallSCM = document.getElementById("wallSCM");
+  const $wallLCM = document.getElementById("wallLCM");
+  const $wallSCYVal = document.getElementById("wallSCYVal");
+  const $wallSCMVal = document.getElementById("wallSCMVal");
+  const $wallLCMVal = document.getElementById("wallLCMVal");
+
+  const $resultTime = document.getElementById("resultTime");
+  const $resultMeta = document.getElementById("resultMeta");
+  const $pace100m = document.getElementById("pace100m");
+  const $pace100y = document.getElementById("pace100y");
+
+  function eventUnit(course) {
+    return course === "SCY" ? "yd" : "m";
+  }
+
+  function syncEventOptions(selectEl, course, selectedValue) {
+    const list = EVENTS[course] || [];
+    selectEl.innerHTML = "";
+    for (const ev of list) {
+      const opt = document.createElement("option");
+      opt.value = String(ev);
+      opt.textContent = `${ev} ${eventUnit(course)}`;
+      if (Number(ev) === Number(selectedValue)) opt.selected = true;
+      selectEl.appendChild(opt);
+    }
+  }
+
+  function matchToEvent() {
+    if (!matchNominal) return;
+
+    const key = `${fromCourse}:${fromEvent}`;
+    const map = EQUIV[key];
+    const list = EVENTS[toCourse];
+
+    if (map && map[toCourse]) {
+      toEvent = map[toCourse];
+      return;
+    }
+
+    if (list.includes(fromEvent)) {
+      toEvent = fromEvent;
+      return;
+    }
+
+    const fromM = eventDistanceMeters(fromCourse, fromEvent);
+    let best = list[0], diff = Infinity;
+    for (const ev of list) {
+      const mtrs = eventDistanceMeters(toCourse, ev);
+      const d = Math.abs(mtrs - fromM);
+      if (d < diff) { best = ev; diff = d; }
+    }
+    toEvent = best;
+  }
+  
+  function updatePoolVisualization(targetSeconds, toDistM) {
+    const poolLengths = {
+      SCY: "25yd",
+      SCM: "25m",
+      LCM: "50m"
+    };
+    
+    const poolLengthsM = {
+      SCY: 25 * 0.9144,
+      SCM: 25,
+      LCM: 50
+    };
+    
+    // Update pool length label
+    const $poolLength = document.getElementById("poolLength");
+    if ($poolLength) {
+      $poolLength.textContent = poolLengths[toCourse] || "25m";
+    }
+    
+    // Update course label
+    const $poolCourseLabel = document.getElementById("poolCourseLabel");
+    if ($poolCourseLabel) {
+      $poolCourseLabel.textContent = `${fromCourse} → ${toCourse}`;
+    }
+    
+    // Calculate walls and laps
+    const poolLen = poolLengthsM[toCourse] || 25;
+    const distM = toDistM || eventDistanceMeters(toCourse, toEvent);
+    const laps = Math.max(1, Math.round(distM / poolLen));
+    const walls = laps; // Each lap ends at a wall
+    
+    // Update laps and distance
+    const $poolTotalLaps = document.getElementById("poolTotalLaps");
+    const $poolTotalDist = document.getElementById("poolTotalDist");
+    if ($poolTotalLaps) {
+      $poolTotalLaps.textContent = `${laps} lap${laps > 1 ? 's' : ''}`;
+    }
+    if ($poolTotalDist) {
+      const unit = toCourse === "SCY" ? "yd" : "m";
+      $poolTotalDist.textContent = `${toEvent}${unit}`;
+    }
+    
+    // Update walls count
+    const $poolWalls = document.getElementById("poolWalls");
+    if ($poolWalls) {
+      $poolWalls.textContent = walls.toString();
+    }
+    
+    // Calculate and update speed
+    const $poolSpeed = document.getElementById("poolSpeed");
+    if ($poolSpeed && Number.isFinite(targetSeconds) && targetSeconds > 0 && distM > 0) {
+      const speedMps = distM / targetSeconds;
+      $poolSpeed.textContent = `${speedMps.toFixed(2)} m/s`;
+    } else {
+      if ($poolSpeed) $poolSpeed.textContent = "—";
+    }
+    
+    // Animate swimmer position based on a cycle (simulating swimming back and forth)
+    const $swimmerPosition = document.getElementById("swimmerPosition");
+    if ($swimmerPosition) {
+      // Create a swimming animation cycle
+      const now = Date.now();
+      const cycleTime = 3000; // 3 seconds per lap
+      const progress = (now % cycleTime) / cycleTime;
+      // Swim back and forth: 0->1->0
+      const position = progress < 0.5 
+        ? 10 + (progress * 2 * 80) // Go right: 10% to 90%
+        : 90 - ((progress - 0.5) * 2 * 80); // Go left: 90% to 10%
+      $swimmerPosition.style.left = `${position}%`;
+    }
+  }
+
+  function computeAndRender() {
+    secondsIn = parseTimeToSeconds(timeIn);
+
+    if (matchNominal) matchToEvent();
+
+    syncEventOptions($fromEvent, fromCourse, fromEvent);
+    syncEventOptions($toEvent, toCourse, toEvent);
+
+    const targetSeconds = convertTime({
+      fromCourse,
+      toCourse,
+      fromEvent,
+      toEvent,
+      inputSeconds: secondsIn,
+      wallGains,
+    });
+
+    const toDistM = eventDistanceMeters(toCourse, toEvent);
+    
+    // Update pool visualization with calculated data
+    updatePoolVisualization(targetSeconds, toDistM);
+
+    const pacePer100M = Number.isFinite(targetSeconds) && toDistM > 0
+      ? targetSeconds / (toDistM / 100)
+      : NaN;
+
+    const pacePer100Y = (() => {
+      if (!Number.isFinite(targetSeconds)) return NaN;
+      const yardsTotal = toCourse === "SCY" ? toEvent : (toDistM / 0.9144);
+      return targetSeconds / (yardsTotal / 100);
+    })();
+
+    $wallSCYVal.textContent = `${fmtNum(wallGains.SCY, 2)}s`;
+    $wallSCMVal.textContent = `${fmtNum(wallGains.SCM, 2)}s`;
+    $wallLCMVal.textContent = `${fmtNum(wallGains.LCM, 2)}s`;
+
+    $resultTime.textContent = Number.isFinite(targetSeconds) ? formatSeconds(targetSeconds, decimals) : "—";
+
+    const courseLabel =
+      ({ SCY: t['SCY (25 yards)'], SCM: t['SCM (25 meters)'], LCM: t['LCM (50 meters)'] }[toCourse]) || toCourse;
+
+    $resultMeta.textContent = `${toEvent} ${eventUnit(toCourse)} • ${courseLabel}`;
+
+    $pace100m.textContent = Number.isFinite(pacePer100M) ? formatSeconds(pacePer100M, decimals) : "—";
+    $pace100y.textContent = Number.isFinite(pacePer100Y) ? formatSeconds(pacePer100Y, decimals) : "—";
+
+    $timeIn.value = timeIn;
+    $decimals.value = String(decimals);
+    $fromCourse.value = fromCourse;
+    $toCourse.value = toCourse;
+    $matchNominal.checked = !!matchNominal;
+
+    computeAndRender._last = { targetSeconds };
+  }
+
+  $decimals.addEventListener("change", (e) => {
+    decimals = clamp(Number(e.target.value), 0, 3);
+    computeAndRender();
+  });
+
+  $fromCourse.addEventListener("change", (e) => {
+    fromCourse = e.target.value;
+    const list = EVENTS[fromCourse] || [];
+    if (!list.includes(fromEvent)) fromEvent = list[1] || list[0] || 100;
+    computeAndRender();
+  });
+
+  $toCourse.addEventListener("change", (e) => {
+    toCourse = e.target.value;
+    const list = EVENTS[toCourse] || [];
+    if (!list.includes(toEvent)) toEvent = list[1] || list[0] || 100;
+    computeAndRender();
+  });
+
+  $fromEvent.addEventListener("change", (e) => {
+    fromEvent = Number(e.target.value);
+    computeAndRender();
+  });
+
+  $toEvent.addEventListener("change", (e) => {
+    toEvent = Number(e.target.value);
+    computeAndRender();
+  });
+
+  $matchNominal.addEventListener("change", (e) => {
+    matchNominal = !!e.target.checked;
+    computeAndRender();
+  });
+
+  $timeIn.addEventListener("input", (e) => {
+    timeIn = e.target.value;
+    computeAndRender();
+  });
+
+  $wallSCY.addEventListener("input", (e) => {
+    wallGains.SCY = Number(e.target.value);
+    computeAndRender();
+  });
+  $wallSCM.addEventListener("input", (e) => {
+    wallGains.SCM = Number(e.target.value);
+    computeAndRender();
+  });
+  $wallLCM.addEventListener("input", (e) => {
+    wallGains.LCM = Number(e.target.value);
+    computeAndRender();
+  });
+
+  $copyResult.addEventListener("click", () => {
+    const last = computeAndRender._last || {};
+    const tt = last.targetSeconds;
+    if (Number.isFinite(tt)) {
+      copyToClipboard(formatSeconds(tt, decimals));
+      const origHTML = $copyResult.innerHTML;
+      $copyResult.innerHTML = '<span class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Copied!</span>';
+      setTimeout(() => { $copyResult.innerHTML = origHTML; }, 1500);
+    }
+  });
+
+  $clearTime.addEventListener("click", () => {
+    timeIn = "";
+    computeAndRender();
+  });
+
+  syncEventOptions($fromEvent, fromCourse, fromEvent);
+  syncEventOptions($toEvent, toCourse, toEvent);
+  $timeIn.value = timeIn;
+
+  $wallSCY.value = String(wallGains.SCY);
+  $wallSCM.value = String(wallGains.SCM);
+  $wallLCM.value = String(wallGains.LCM);
+
+  // Set default selections
+  $decimals.value = "2";
+  $matchNominal.checked = true;
+
+  computeAndRender();
+</script>
+
+  <Chart title={t['Table']} data={chartData} />
+  <FAQs faqs={t.faqs} />
+  <CalculatorToolsBanner />
+  <RelatedResources />
+</IndexLayout>
