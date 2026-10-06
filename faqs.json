@@ -1,0 +1,822 @@
+{
+  "en": {
+    "faqs": [
+      {
+        "question": "How do you calculate swim time?",
+        "answer": "Time is a function of distance, pool length, and your pace between walls. Our model adjusts for start/turn advantages so you can compare SCY, SCM, and LCM more fairly."
+      },
+      {
+        "question": "Is the swimswam time converter accurate?",
+        "answer": "All public converters are estimates. Individual strengths (e.g., underwater dolphin, turns) can make you faster in short-course than long-course, or vice versa. Use the sliders to tune."
+      },
+      {
+        "question": "What is a good 2000 yard swim time?",
+        "answer": "It depends on experience. Fitness swimmers often aim for 30–40 minutes continuous; competitive swimmers may go well under that."
+      },
+      {
+        "question": "What is a good 1000m swim time?",
+        "answer": "Many aim for 18–25 minutes; competitive benchmarks vary by level and event focus."
+      },
+      {
+        "question": "How do I convert swimming time to distance?",
+        "answer": "Use the formula: Distance = Speed × Time. First convert your pace (e.g., 1:30 per 100 m) to a speed in metres per second (100 ÷ 90 = 1.11 m/s), then multiply by total swimming time in seconds. For example, swimming 30 minutes at 1:30/100 m pace covers roughly 2,000 metres."
+      },
+      {
+        "question": "How do I convert 25-yard pool times to 25-metre times for USA swimmers?",
+        "answer": "A 25-metre pool lap is 2.14 m (about 9.4 %) longer than a 25-yard lap. Simply scaling the time by 1.094 gives a rough estimate, but our converter also adjusts for wall-turn advantages — because each push-off covers less of the total lap in a longer pool — giving a more accurate result."
+      },
+      {
+        "question": "What is a 50-yard pool and how does it affect swim times?",
+        "answer": "A 50-yard pool is 45.72 m long — 4.28 m shorter than a 50-metre Olympic pool. Both have the same wall count per race, so the main difference is distance per lap. Times in a 50-yard pool are typically faster than 50-metre (LCM) equivalents because each lap covers less distance."
+      },
+      {
+        "question": "Why are short-course times faster than long-course times?",
+        "answer": "In a shorter pool you hit the wall more often. Each wall gives a speed boost from the push-off and underwater streamline phase — typically saving 0.2–0.8 seconds per wall depending on the swimmer. A 200 m race in a 25 m pool has twice as many walls as the same race in a 50 m pool, which adds up to a meaningful time difference."
+      },
+      {
+        "question": "What is the difference between pace and speed in swimming?",
+        "answer": "Pace is time per distance (e.g., 1:20 per 100 m) while speed is distance per time (e.g., 1.25 m/s). Coaches use pace for race planning and interval sets; speed is more useful for physics-based calculations like estimating total distance covered."
+      },
+      {
+        "question": "Do NCAA and USA Swimming use the same pool size?",
+        "answer": "NCAA meets are held in 25-yard (SCY) pools, while USA Swimming sanctioned meets can be either SCY, 25-metre (SCM), or 50-metre (LCM). For Olympic Trials and international selection, 50-metre pools are used. Understanding these differences is essential for comparing times across competitions."
+      },
+      {
+        "question": "How do you use the ASA swim time conversion calculator?",
+        "answer": "The ASA swim time conversion calculator (now managed by Swim England) is designed to convert times between Short Course Metres (SCM, 25m) and Long Course Metres (LCM, 50m) using official UK equivalent time algorithms. You can run these conversions dynamically on our dedicated [UK Swim Converter](/uk-swim-converter/) page."
+      },
+      {
+        "question": "How does a swim time converter handle 25 yards to meters?",
+        "answer": "To convert a swim time from 25 yards (SCY) to 25 meters (SCM), you must adjust for both the distance difference (25 meters is about 2.14 meters longer than 25 yards) and the change in wall turnaround frequency. Our [Yards to Meters](/yards-to-meters/) calculator automatically runs these conversions with adjustable wall-turn advantages."
+      },
+      {
+        "question": "What are the swimming conversion times from 25m to 50m?",
+        "answer": "Converting swimming times from 25m (Short Course Metres / SCM) to 50m (Long Course Metres / LCM) involves adding time because a 50m pool has half the number of turns (walls) for any given distance. Turns provide a speed boost via the push-off and underwater phase. You can convert these times on our [SCM to SCY](/scm-to-scy/) or [SCY to LCM](/scy-to-lcm/) pages."
+      },
+      {
+        "question": "Where can I find an ASA swim time conversion calculator PDF?",
+        "answer": "While Swim England provides PDF lookup tables for time conversions, using an online interactive calculator like our [Time Swim Converter](/) is faster and more precise. It calculates equivalent times dynamically based on real-time event rules and individual turn advantages."
+      },
+      {
+        "question": "How does a long course to short course conversion calculator work?",
+        "answer": "A long course (50m) to short course (25m or 25yd) conversion calculator estimates equivalent times by subtracting the speed advantage gained from hitting more walls. For every extra turn in a short course pool, a swimmer typically gains 0.2 to 0.8 seconds. Our tool lets you adjust these per-wall speed gains for highly customized conversions."
+      },
+      {
+        "question": "How do I convert 50 yards to meters in swimming?",
+        "answer": "A 50-yard pool is 45.72 meters, which is 4.28 meters shorter than a 50-meter Olympic pool. You can convert 50-yard times to SCM (25m) or LCM (50m) by accounting for both the total distance difference and the specific turn counts of the event."
+      },
+      {
+        "question": "What is a swim time calculator and how do coaches use it?",
+        "answer": "A swim time calculator is a tool used by swimmers, coaches, and recruiters to estimate equivalent race times across different pool lengths (Short Course Yards, Short Course Meters, and Long Course Meters). It helps compare performance profiles, calculate training splits, and evaluate college recruiting standards."
+      }
+    ]
+  },
+  "hi": {
+    "faqs": [
+      {
+        "question": "स्विम टाइम कैसे कैलकुलेट करते हैं?",
+        "answer": "समय दूरी, पूल की लंबाई और दीवारों के बीच आपकी गति पर निर्भर करता है। हमारा मॉडल स्टार्ट/टर्न के लाभ को समायोजित करता है ताकि आप SCY, SCM और LCM की तुलना अधिक निष्पक्ष रूप से कर सकें।"
+      },
+      {
+        "question": "क्या swimswam टाइम कन्वर्टर सटीक है?",
+        "answer": "सभी पब्लिक कन्वर्टर अनुमान होते हैं। व्यक्तिगत ताकतें (जैसे अंडरवॉटर डॉल्फ़िन, टर्न) आपको शॉर्ट-कोर्स में लॉन्ग-कोर्स से तेज़ बना सकती हैं, या उल्टा। ट्यून करने के लिए स्लाइडर्स का उपयोग करें।"
+      },
+      {
+        "question": "2000 यार्ड स्विम टाइम कितना अच्छा माना जाता है?",
+        "answer": "यह अनुभव पर निर्भर करता है। फिटनेस स्विमर्स अक्सर लगातार 30–40 मिनट का लक्ष्य रखते हैं; प्रतिस्पर्धी स्विमर्स इससे काफी कम समय में जा सकते हैं।"
+      },
+      {
+        "question": "1000m स्विम टाइम कितना अच्छा है?",
+        "answer": "कई लोग 18–25 मिनट का लक्ष्य रखते हैं; प्रतिस्पर्धी मानक स्तर और इवेंट फोकस के अनुसार बदलते हैं।"
+      },
+      {
+        "question": "मैं तैराकी के समय को दूरी में कैसे बदलूँ?",
+        "answer": "सूत्र का उपयोग करें: दूरी = गति × समय। पहले अपनी पेस (जैसे 1:30 प्रति 100 मी) को मीटर/सेकंड में बदलें (100 ÷ 90 = 1.11 मी/से), फिर कुल तैराकी समय (सेकंड में) से गुणा करें। उदाहरण: 1:30/100मी पेस पर 30 मिनट तैरने से लगभग 2,000 मीटर होते हैं।"
+      },
+      {
+        "question": "USA तैराकों के लिए 25-यार्ड पूल का समय 25-मीटर में कैसे बदलें?",
+        "answer": "25 मीटर पूल की एक लैप 25 यार्ड से 2.14 मी (लगभग 9.4%) लंबी होती है। समय को 1.094 से गुणा करने पर मोटा अनुमान मिलता है, लेकिन हमारा कन्वर्टर वॉल-टर्न एडवांटेज को भी एडजस्ट करता है।"
+      },
+      {
+        "question": "50 यार्ड पूल क्या है और यह तैराकी समय को कैसे प्रभावित करता है?",
+        "answer": "50 यार्ड पूल 45.72 मी लंबा होता है — 50 मीटर ओलंपिक पूल से 4.28 मी छोटा। दोनों में प्रति रेस समान वॉल काउंट होता है, इसलिए मुख्य अंतर प्रति लैप दूरी है। 50 यार्ड पूल में समय आमतौर पर 50 मीटर (LCM) की तुलना में तेज़ होता है।"
+      },
+      {
+        "question": "शॉर्ट-कोर्स समय लॉन्ग-कोर्स से तेज़ क्यों होता है?",
+        "answer": "छोटे पूल में आप अधिक बार दीवार से टकराते हैं। हर वॉल पुश-ऑफ और अंडरवॉटर स्ट्रीमलाइन से गति बढ़ाती है — आमतौर पर प्रति वॉल 0.2–0.8 सेकंड की बचत। 25 मी पूल में 200 मी रेस में 50 मी पूल की तुलना में दोगुनी वॉल होती हैं।"
+      },
+      {
+        "question": "तैराकी में पेस और स्पीड में क्या अंतर है?",
+        "answer": "पेस = प्रति दूरी समय (जैसे 1:20/100मी), स्पीड = प्रति समय दूरी (जैसे 1.25 मी/से)। कोच रेस प्लानिंग के लिए पेस का उपयोग करते हैं; स्पीड भौतिकी-आधारित गणनाओं जैसे कुल दूरी अनुमान के लिए उपयोगी है।"
+      },
+      {
+        "question": "क्या NCAA और USA Swimming एक ही पूल साइज़ का उपयोग करते हैं?",
+        "answer": "NCAA मीट 25-यार्ड (SCY) पूल में होती हैं, जबकि USA Swimming मीट SCY, 25-मीटर (SCM), या 50-मीटर (LCM) में हो सकती हैं। ओलंपिक ट्रायल्स के लिए 50-मीटर पूल उपयोग होते हैं।"
+      }
+    ]
+  },
+  "es": {
+    "faqs": [
+      {
+        "question": "¿Cómo se calcula el tiempo de natación?",
+        "answer": "El tiempo depende de la distancia, la longitud de la piscina y tu ritmo entre paredes. Nuestro modelo ajusta la ventaja de salida/viraje para que puedas comparar SCY, SCM y LCM de forma más justa."
+      },
+      {
+        "question": "¿El convertidor de tiempo de swimswam es preciso?",
+        "answer": "Todos los convertidores públicos son estimaciones. Fortalezas individuales (p. ej., delfín subacuático, virajes) pueden hacerte más rápido en piscina corta que en larga, o al revés. Usa los deslizadores para ajustar."
+      },
+      {
+        "question": "¿Cuál es un buen tiempo para nadar 2000 yardas?",
+        "answer": "Depende de la experiencia. Nadadores de fitness suelen apuntar a 30–40 minutos continuos; nadadores competitivos pueden estar muy por debajo."
+      },
+      {
+        "question": "¿Cuál es un buen tiempo para 1000 m?",
+        "answer": "Muchos apuntan a 18–25 minutos; las referencias competitivas varían según el nivel y el enfoque de la prueba."
+      },
+      {
+        "question": "¿Cómo convierto tiempo de natación a distancia?",
+        "answer": "Usa la fórmula: Distancia = Velocidad × Tiempo. Convierte tu ritmo (ej. 1:30 por 100 m) a m/s (100 ÷ 90 = 1.11 m/s) y multiplica por el tiempo total en segundos. Nadar 30 min a 1:30/100m cubre unos 2,000 metros."
+      },
+      {
+        "question": "¿Cómo convierto tiempos de 25 yardas a 25 metros para nadadores de EE.UU.?",
+        "answer": "Un largo de 25 metros es 2.14 m (9.4%) más largo que uno de 25 yardas. Escalar el tiempo por 1.094 da un estimado, pero nuestro convertidor también ajusta ventajas de viraje para mayor precisión."
+      },
+      {
+        "question": "¿Qué es una piscina de 50 yardas y cómo afecta los tiempos?",
+        "answer": "Una piscina de 50 yardas mide 45.72 m — 4.28 m más corta que una olímpica de 50 m. Ambas tienen el mismo número de paredes por carrera, por lo que la diferencia principal es la distancia por largo."
+      },
+      {
+        "question": "¿Por qué los tiempos en piscina corta son más rápidos?",
+        "answer": "En una piscina más corta tocas la pared más seguido. Cada pared da un impulso con el empuje y la fase subacuática — típicamente 0.2–0.8 s por pared. Una carrera de 200 m en piscina de 25 m tiene el doble de paredes que en una de 50 m."
+      },
+      {
+        "question": "¿Cuál es la diferencia entre ritmo y velocidad en natación?",
+        "answer": "Ritmo = tiempo por distancia (ej. 1:20/100m), velocidad = distancia por tiempo (ej. 1.25 m/s). Los entrenadores usan el ritmo para planificar carreras; la velocidad es útil para cálculos como la distancia total recorrida."
+      },
+      {
+        "question": "¿NCAA y USA Swimming usan el mismo tamaño de piscina?",
+        "answer": "Las competencias NCAA son en piscinas de 25 yardas (SCY), mientras que USA Swimming puede ser SCY, 25 metros (SCM) o 50 metros (LCM). Para las pruebas olímpicas se usan piscinas de 50 metros."
+      }
+    ]
+  },
+  "ru": {
+    "faqs": [
+      {
+        "question": "Как рассчитывают время заплыва?",
+        "answer": "Время зависит от дистанции, длины бассейна и вашего темпа между стенками. Наша модель учитывает преимущества старта/поворотов, чтобы сравнение SCY, SCM и LCM было более справедливым."
+      },
+      {
+        "question": "Тайм-конвертер swimswam точный?",
+        "answer": "Все публичные конвертеры дают оценку. Индивидуальные сильные стороны (например, подводная «дельфин» и повороты) могут делать вас быстрее на короткой воде, чем на длинной, или наоборот. Настраивайте ползунками."
+      },
+      {
+        "question": "Какое время на 2000 ярдов считается хорошим?",
+        "answer": "Зависит от опыта. Любители фитнес-плавания часто стремятся к 30–40 минутам непрерывно; соревновательные пловцы могут плыть заметно быстрее."
+      },
+      {
+        "question": "Какое время на 1000 м считается хорошим?",
+        "answer": "Многие ориентируются на 18–25 минут; соревновательные ориентиры зависят от уровня и специализации."
+      },
+      {
+        "question": "Как перевести время плавания в расстояние?",
+        "answer": "Формула: Расстояние = Скорость × Время. Переведите темп (напр., 1:30 на 100 м) в м/с (100 ÷ 90 = 1,11 м/с), затем умножьте на общее время в секундах. 30 минут при темпе 1:30/100м — это около 2 000 м."
+      },
+      {
+        "question": "Как перевести время с 25-ярдового бассейна в 25-метровый для пловцов из США?",
+        "answer": "Дорожка 25 м длиннее 25 ярдов на 2,14 м (≈9,4%). Умножение времени на 1,094 даёт грубую оценку, но наш конвертер также учитывает преимущества поворотов."
+      },
+      {
+        "question": "Что такое 50-ярдовый бассейн и как он влияет на время?",
+        "answer": "Бассейн 50 ярдов имеет длину 45,72 м — на 4,28 м короче 50-метрового олимпийского. Количество стенок одинаковое, разница в длине дорожки. Время в 50-ярдовом бассейне обычно быстрее."
+      },
+      {
+        "question": "Почему время на короткой воде быстрее, чем на длинной?",
+        "answer": "В коротком бассейне больше стенок. Каждая стенка даёт ускорение от толчка и подводной фазы — обычно 0,2–0,8 с экономии. В 25-метровом бассейне на 200 м вдвое больше стенок, чем в 50-метровом."
+      },
+      {
+        "question": "В чём разница между темпом и скоростью в плавании?",
+        "answer": "Темп — время на дистанцию (напр., 1:20/100м), скорость — дистанция за время (напр., 1,25 м/с). Тренеры используют темп для планирования заплывов; скорость полезна для расчёта общего расстояния."
+      },
+      {
+        "question": "NCAA и USA Swimming используют бассейны одного размера?",
+        "answer": "Соревнования NCAA проводятся в 25-ярдовых (SCY) бассейнах, а USA Swimming — в SCY, 25-метровых (SCM) или 50-метровых (LCM). Для олимпийского отбора используются 50-метровые бассейны."
+      }
+    ]
+  },
+  "fr": {
+    "faqs": [
+      {
+        "question": "Comment calcule-t-on un temps de natation ?",
+        "answer": "Le temps dépend de la distance, de la longueur du bassin et de votre allure entre les murs. Notre modèle ajuste l’avantage du départ/virage pour comparer SCY, SCM et LCM plus équitablement."
+      },
+      {
+        "question": "Le convertisseur de temps swimswam est-il précis ?",
+        "answer": "Tous les convertisseurs publics sont des estimations. Des points forts individuels (p. ex. ondulation sous l’eau, virages) peuvent vous rendre plus rapide en bassin court qu’en bassin long, ou l’inverse. Utilisez les curseurs pour ajuster."
+      },
+      {
+        "question": "Quel est un bon temps sur 2000 yards ?",
+        "answer": "Cela dépend de l’expérience. Les nageurs fitness visent souvent 30–40 minutes en continu ; les nageurs compétitifs peuvent être largement en dessous."
+      },
+      {
+        "question": "Quel est un bon temps sur 1000 m ?",
+        "answer": "Beaucoup visent 18–25 minutes ; les repères compétitifs varient selon le niveau et la spécialité."
+      },
+      {
+        "question": "Comment convertir un temps de nage en distance ?",
+        "answer": "Formule : Distance = Vitesse × Temps. Convertissez votre allure (ex. 1:30/100 m) en m/s (100 ÷ 90 = 1,11 m/s), puis multipliez par le temps total en secondes. 30 min à 1:30/100m ≈ 2 000 mètres."
+      },
+      {
+        "question": "Comment convertir les temps 25 yards en 25 mètres pour les nageurs américains ?",
+        "answer": "Un bassin de 25 m est 2,14 m (~9,4 %) plus long qu'un bassin de 25 yards. Multiplier le temps par 1,094 donne une estimation, mais notre convertisseur ajuste aussi les avantages de virage."
+      },
+      {
+        "question": "Qu'est-ce qu'une piscine de 50 yards et quel impact sur les temps ?",
+        "answer": "Un bassin de 50 yards fait 45,72 m — 4,28 m de moins qu'un bassin olympique de 50 m. Le nombre de murs par course est identique, seule la distance par longueur change."
+      },
+      {
+        "question": "Pourquoi les temps en petit bassin sont-ils plus rapides ?",
+        "answer": "Dans un bassin plus court, vous touchez le mur plus souvent. Chaque virage offre un élan grâce à la poussée et la phase sous-marine — environ 0,2 à 0,8 s par mur. Un 200 m en bassin de 25 m a deux fois plus de murs qu'en bassin de 50 m."
+      },
+      {
+        "question": "Quelle est la différence entre allure et vitesse en natation ?",
+        "answer": "L'allure = temps par distance (ex. 1:20/100 m), la vitesse = distance par temps (ex. 1,25 m/s). Les entraîneurs utilisent l'allure pour planifier les courses ; la vitesse est utile pour estimer la distance totale parcourue."
+      },
+      {
+        "question": "La NCAA et USA Swimming utilisent-elles la même taille de bassin ?",
+        "answer": "Les compétitions NCAA se déroulent en bassin de 25 yards (SCY), tandis qu'USA Swimming peut être en SCY, 25 m (SCM) ou 50 m (LCM). Les sélections olympiques se font en bassin de 50 m."
+      }
+    ]
+  },
+  "de": {
+    "faqs": [
+      {
+        "question": "Wie berechnet man eine Schwimmzeit?",
+        "answer": "Die Zeit hängt von Distanz, Beckenlänge und deinem Tempo zwischen den Wänden ab. Unser Modell berücksichtigt Start-/Wende-Vorteile, damit du SCY, SCM und LCM fairer vergleichen kannst."
+      },
+      {
+        "question": "Ist der swimswam-Zeitkonverter genau?",
+        "answer": "Alle öffentlichen Konverter sind Schätzungen. Individuelle Stärken (z. B. Unterwasser-Delfin, Wenden) können dich im Kurzbahnbecken schneller machen als in der Langbahn – oder umgekehrt. Nutze die Regler zum Feinabstimmen."
+      },
+      {
+        "question": "Was ist eine gute Zeit für 2000 Yards?",
+        "answer": "Das hängt von der Erfahrung ab. Fitness-Schwimmer peilen oft 30–40 Minuten am Stück an; Wettkampfschwimmer können deutlich darunter liegen."
+      },
+      {
+        "question": "Was ist eine gute Zeit für 1000 m?",
+        "answer": "Viele zielen auf 18–25 Minuten; Wettkampf-Benchmarks variieren je nach Niveau und Schwerpunkt."
+      },
+      {
+        "question": "Wie rechne ich Schwimmzeit in Distanz um?",
+        "answer": "Formel: Distanz = Geschwindigkeit × Zeit. Rechne dein Tempo (z. B. 1:30/100 m) in m/s um (100 ÷ 90 = 1,11 m/s), dann multipliziere mit der Gesamtzeit in Sekunden. 30 Min bei 1:30/100m ≈ 2.000 Meter."
+      },
+      {
+        "question": "Wie rechne ich 25-Yard-Zeiten in 25-Meter-Zeiten um (USA)?",
+        "answer": "Eine 25-m-Bahn ist 2,14 m (~9,4 %) länger als eine 25-Yard-Bahn. Das Multiplizieren der Zeit mit 1,094 gibt eine Schätzung, aber unser Konverter passt auch die Wendevorteile an."
+      },
+      {
+        "question": "Was ist ein 50-Yard-Becken und wie beeinflusst es die Zeiten?",
+        "answer": "Ein 50-Yard-Becken ist 45,72 m lang — 4,28 m kürzer als ein olympisches 50-m-Becken. Beide haben die gleiche Anzahl Wenden pro Rennen, der Unterschied ist die Bahnlänge."
+      },
+      {
+        "question": "Warum sind Kurzbahn-Zeiten schneller als Langbahn?",
+        "answer": "Im kürzeren Becken berührt man häufiger die Wand. Jede Wand bringt einen Geschwindigkeitsschub durch Abstoß und Unterwasser-Phase — typisch 0,2–0,8 s pro Wand. Ein 200-m-Rennen im 25-m-Becken hat doppelt so viele Wände wie im 50-m-Becken."
+      },
+      {
+        "question": "Was ist der Unterschied zwischen Tempo und Geschwindigkeit beim Schwimmen?",
+        "answer": "Tempo = Zeit pro Distanz (z. B. 1:20/100 m), Geschwindigkeit = Distanz pro Zeit (z. B. 1,25 m/s). Trainer nutzen Tempo für Rennplanung; Geschwindigkeit ist nützlich für Distanzberechnungen."
+      },
+      {
+        "question": "Verwenden NCAA und USA Swimming die gleiche Beckengröße?",
+        "answer": "NCAA-Wettkämpfe finden in 25-Yard-Becken (SCY) statt, USA Swimming kann SCY, 25 m (SCM) oder 50 m (LCM) sein. Für die olympische Qualifikation werden 50-m-Becken verwendet."
+      }
+    ]
+  },
+  "it": {
+    "faqs": [
+      {
+        "question": "Come si calcola il tempo di nuoto?",
+        "answer": "Il tempo dipende da distanza, lunghezza della piscina e ritmo tra le pareti. Il nostro modello regola i vantaggi di partenza/virata per confrontare SCY, SCM e LCM in modo più equo."
+      },
+      {
+        "question": "Il convertitore di tempo di swimswam è accurato?",
+        "answer": "Tutti i convertitori pubblici sono stime. Punti di forza individuali (es. delfino subacqueo, virate) possono renderti più veloce in vasca corta che in lunga, o viceversa. Usa gli slider per tarare."
+      },
+      {
+        "question": "Qual è un buon tempo sui 2000 yard?",
+        "answer": "Dipende dall’esperienza. I nuotatori fitness spesso puntano a 30–40 minuti continuativi; i competitivi possono stare ben al di sotto."
+      },
+      {
+        "question": "Qual è un buon tempo sui 1000 m?",
+        "answer": "Molti puntano a 18–25 minuti; i riferimenti agonistici variano per livello e specialità."
+      },
+      {
+        "question": "Come converto il tempo di nuoto in distanza?",
+        "answer": "Formula: Distanza = Velocità × Tempo. Converti il ritmo (es. 1:30/100 m) in m/s (100 ÷ 90 = 1,11 m/s), poi moltiplica per il tempo totale in secondi. 30 min a 1:30/100m ≈ 2.000 metri."
+      },
+      {
+        "question": "Come converto i tempi da 25 yard a 25 metri per i nuotatori USA?",
+        "answer": "Una vasca da 25 m è 2,14 m (~9,4%) più lunga di una da 25 yard. Moltiplicare il tempo per 1,094 dà una stima, ma il nostro convertitore regola anche i vantaggi di virata."
+      },
+      {
+        "question": "Cos'è una piscina da 50 yard e come influenza i tempi?",
+        "answer": "Una piscina da 50 yard è lunga 45,72 m — 4,28 m più corta di una olimpica da 50 m. Entrambe hanno lo stesso numero di muri per gara, la differenza è nella distanza per vasca."
+      },
+      {
+        "question": "Perché i tempi in vasca corta sono più veloci?",
+        "answer": "In una vasca più corta si tocca il muro più spesso. Ogni muro dà una spinta dalla virata e dalla fase subacquea — circa 0,2–0,8 s per muro. Un 200 m in vasca da 25 m ha il doppio dei muri rispetto a una da 50 m."
+      },
+      {
+        "question": "Qual è la differenza tra ritmo e velocità nel nuoto?",
+        "answer": "Ritmo = tempo per distanza (es. 1:20/100 m), velocità = distanza per tempo (es. 1,25 m/s). Gli allenatori usano il ritmo per pianificare gare; la velocità serve per calcoli come la distanza totale."
+      },
+      {
+        "question": "NCAA e USA Swimming usano la stessa dimensione di vasca?",
+        "answer": "Le gare NCAA si svolgono in vasche da 25 yard (SCY), mentre USA Swimming può essere SCY, 25 m (SCM) o 50 m (LCM). Per le selezioni olimpiche si usano vasche da 50 m."
+      }
+    ]
+  },
+  "pt": {
+    "faqs": [
+      {
+        "question": "Como calcular o tempo de natação?",
+        "answer": "O tempo é função da distância, do comprimento da piscina e do seu ritmo entre as paredes. Nosso modelo ajusta as vantagens de saída/virada para comparar SCY, SCM e LCM de forma mais justa."
+      },
+      {
+        "question": "O conversor de tempo do swimswam é preciso?",
+        "answer": "Todos os conversores públicos são estimativas. Forças individuais (ex.: golfinho subaquático, viradas) podem deixar você mais rápido em piscina curta do que em longa, ou vice-versa. Use os sliders para ajustar."
+      },
+      {
+        "question": "Qual é um bom tempo para 2000 jardas?",
+        "answer": "Depende da experiência. Nadadores de fitness geralmente miram 30–40 minutos contínuos; nadadores competitivos podem ficar bem abaixo disso."
+      },
+      {
+        "question": "Qual é um bom tempo para 1000 m?",
+        "answer": "Muitos miram 18–25 minutos; referências competitivas variam conforme o nível e o foco da prova."
+      },
+      {
+        "question": "Como converto tempo de natação em distância?",
+        "answer": "Fórmula: Distância = Velocidade × Tempo. Converta seu ritmo (ex. 1:30/100 m) para m/s (100 ÷ 90 = 1,11 m/s), depois multiplique pelo tempo total em segundos. 30 min a 1:30/100m ≈ 2.000 metros."
+      },
+      {
+        "question": "Como converto tempos de 25 jardas para 25 metros (nadadores dos EUA)?",
+        "answer": "Uma piscina de 25 m tem 2,14 m (~9,4%) a mais que uma de 25 jardas. Multiplicar o tempo por 1,094 dá uma estimativa, mas nosso conversor também ajusta vantagens de virada."
+      },
+      {
+        "question": "O que é uma piscina de 50 jardas e como afeta os tempos?",
+        "answer": "Uma piscina de 50 jardas tem 45,72 m — 4,28 m a menos que uma olímpica de 50 m. Ambas têm o mesmo número de bordas por prova, a diferença é na distância por volta."
+      },
+      {
+        "question": "Por que os tempos em piscina curta são mais rápidos?",
+        "answer": "Na piscina mais curta você toca a borda mais vezes. Cada borda dá impulso com a saída e a fase subaquática — cerca de 0,2–0,8 s por borda. Uma prova de 200 m em piscina de 25 m tem o dobro de bordas."
+      },
+      {
+        "question": "Qual a diferença entre ritmo e velocidade na natação?",
+        "answer": "Ritmo = tempo por distância (ex. 1:20/100 m), velocidade = distância por tempo (ex. 1,25 m/s). Treinadores usam ritmo para planejamento de provas; velocidade é útil para calcular distância total."
+      },
+      {
+        "question": "NCAA e USA Swimming usam o mesmo tamanho de piscina?",
+        "answer": "Competições NCAA são em piscinas de 25 jardas (SCY), enquanto USA Swimming pode ser SCY, 25 m (SCM) ou 50 m (LCM). Para seletivas olímpicas, usam-se piscinas de 50 m."
+      }
+    ]
+  },
+  "bn": {
+    "faqs": [
+      {
+        "question": "সুইম টাইম কীভাবে গণনা করা হয়?",
+        "answer": "সময় নির্ভর করে দূরত্ব, পুলের দৈর্ঘ্য এবং দেয়ালের মাঝখানে আপনার পেসের উপর। আমাদের মডেল স্টার্ট/টার্ন অ্যাডভান্টেজ সমন্বয় করে যাতে SCY, SCM এবং LCM আরও ন্যায্যভাবে তুলনা করা যায়।"
+      },
+      {
+        "question": "swimswam টাইম কনভার্টার কি সঠিক?",
+        "answer": "সব পাবলিক কনভার্টারই অনুমান। ব্যক্তিগত শক্তি (যেমন আন্ডারওয়াটার ডলফিন, টার্ন) আপনাকে শর্ট-কোর্সে লং-কোর্সের চেয়ে দ্রুত করতে পারে, বা উল্টোও হতে পারে। টিউন করতে স্লাইডার ব্যবহার করুন।"
+      },
+      {
+        "question": "2000 ইয়ার্ড সুইম টাইম কতটা ভালো?",
+        "answer": "এটি অভিজ্ঞতার উপর নির্ভর করে। ফিটনেস স্বিমাররা প্রায়ই টানা ৩০–৪০ মিনিট লক্ষ্য করে; প্রতিযোগিতামূলক স্বিমাররা এর চেয়ে অনেক কম সময়ে করতে পারে।"
+      },
+      {
+        "question": "1000m সুইম টাইম কতটা ভালো?",
+        "answer": "অনেকে ১৮–২৫ মিনিট লক্ষ্য করে; প্রতিযোগিতামূলক মানদণ্ড স্তর ও ইভেন্ট ফোকাস অনুযায়ী ভিন্ন হয়।"
+      },
+      {
+        "question": "সুইমিং টাইম থেকে দূরত্ব কীভাবে বের করবো?",
+        "answer": "সূত্র: দূরত্ব = গতি × সময়। পেস (যেমন ১:৩০/১০০মি) কে মি/সে তে রূপান্তর করুন (১০০ ÷ ৯০ = ১.১১ মি/সে), তারপর মোট সময় (সেকেন্ডে) দিয়ে গুণ করুন। ১:৩০/১০০মি পেসে ৩০ মিনিট সাঁতারে প্রায় ২,০০০ মিটার হয়।"
+      },
+      {
+        "question": "USA সাঁতারুদের জন্য ২৫-ইয়ার্ড টাইম ২৫-মিটারে কীভাবে রূপান্তর করবো?",
+        "answer": "২৫ মিটার পুলের ল্যাপ ২৫ ইয়ার্ডের চেয়ে ২.১৪ মি (প্রায় ৯.৪%) বেশি লম্বা। সময়কে ১.০৯৪ দিয়ে গুণ করলে মোটামুটি অনুমান পাওয়া যায়, তবে আমাদের কনভার্টার ওয়াল-টার্ন সুবিধাও সমন্বয় করে।"
+      },
+      {
+        "question": "৫০ ইয়ার্ড পুল কী এবং এটি সাঁতারের সময়কে কীভাবে প্রভাবিত করে?",
+        "answer": "৫০ ইয়ার্ড পুল ৪৫.৭২ মি লম্বা — ৫০ মিটার অলিম্পিক পুলের চেয়ে ৪.২৮ মি ছোট। উভয়ের ওয়াল কাউন্ট একই, তাই মূল পার্থক্য প্রতি ল্যাপের দূরত্বে।"
+      },
+      {
+        "question": "শর্ট-কোর্সে সময় কেন লং-কোর্সের চেয়ে দ্রুত?",
+        "answer": "ছোট পুলে বেশি ওয়াল পাওয়া যায়। প্রতিটি ওয়াল পুশ-অফ এবং আন্ডারওয়াটার ফেজ থেকে গতি বাড়ায় — সাধারণত প্রতি ওয়ালে ০.২–০.৮ সেকেন্ড সাশ্রয়। ২৫ মি পুলে ২০০ মি রেসে ৫০ মি পুলের তুলনায় দ্বিগুণ ওয়াল থাকে।"
+      },
+      {
+        "question": "সাঁতারে পেস এবং স্পিডের মধ্যে পার্থক্য কী?",
+        "answer": "পেস = প্রতি দূরত্বে সময় (যেমন ১:২০/১০০মি), স্পিড = প্রতি সময়ে দূরত্ব (যেমন ১.২৫ মি/সে)। কোচরা রেস পরিকল্পনার জন্য পেস ব্যবহার করেন; স্পিড মোট দূরত্ব হিসাবের জন্য উপযোগী।"
+      },
+      {
+        "question": "NCAA এবং USA Swimming কি একই পুল সাইজ ব্যবহার করে?",
+        "answer": "NCAA মিট ২৫-ইয়ার্ড (SCY) পুলে অনুষ্ঠিত হয়, যেখানে USA Swimming SCY, ২৫-মিটার (SCM), বা ৫০-মিটার (LCM) হতে পারে। অলিম্পিক ট্রায়ালসের জন্য ৫০-মিটার পুল ব্যবহৃত হয়।"
+      }
+    ]
+  },
+  "ja": {
+    "faqs": [
+      {
+        "question": "泳タイムはどう計算しますか？",
+        "answer": "タイムは距離、プール長、そして壁の間のペースで決まります。私たちのモデルはスタート/ターンの有利さを調整し、SCY・SCM・LCMをより公平に比較できるようにします。"
+      },
+      {
+        "question": "swimswam のタイムコンバーターは正確ですか？",
+        "answer": "公開コンバーターはすべて推定です。個人の強み（例：水中ドルフィン、ターン）により短水路の方が長水路より速くなることも、その逆もあります。スライダーで調整してください。"
+      },
+      {
+        "question": "2000ヤードの良いタイムは？",
+        "answer": "経験によります。フィットネス目的なら連続で30〜40分を目標にする人が多く、競泳ならそれよりかなり短いこともあります。"
+      },
+      {
+        "question": "1000mの良いタイムは？",
+        "answer": "多くは18〜25分を目安にしますが、競技の基準はレベルや専門種目で変わります。"
+      },
+      {
+        "question": "泳タイムを距離に変換するには？",
+        "answer": "公式：距離 = 速度 × 時間。ペース（例：1:30/100m）をm/sに変換し（100÷90=1.11m/s）、総時間（秒）を掛けます。1:30/100mペースで30分泳ぐと約2,000mです。"
+      },
+      {
+        "question": "米国選手の25ヤードタイムを25メートルに変換するには？",
+        "answer": "25mプールは25ヤードより2.14m（約9.4%）長いです。タイムに1.094を掛けると概算が出ますが、当コンバーターはターンの有利さも調整します。"
+      },
+      {
+        "question": "50ヤードプールとは？タイムへの影響は？",
+        "answer": "50ヤードプールは45.72m — 50mオリンピックプールより4.28m短いです。レース毎の壁の数は同じなので、主な違いはラップ当たりの距離です。"
+      },
+      {
+        "question": "短水路のタイムが長水路より速いのはなぜ？",
+        "answer": "短いプールでは壁に多く触れます。各壁ではターンと水中ストリームラインから加速が得られ、通常1壁あたり0.2〜0.8秒の短縮になります。25mプールの200mレースは50mプールの2倍の壁があります。"
+      },
+      {
+        "question": "水泳のペースとスピードの違いは？",
+        "answer": "ペース＝距離あたりの時間（例：1:20/100m）、スピード＝時間あたりの距離（例：1.25m/s）。コーチはレース計画にペースを、物理計算には速度を使います。"
+      },
+      {
+        "question": "NCAAとUSA Swimmingは同じプールサイズを使いますか？",
+        "answer": "NCAA大会は25ヤード（SCY）プール、USA SwimmingはSCY、25m（SCM）、50m（LCM）のいずれかです。オリンピック選考は50mプールで行われます。"
+      }
+    ]
+  },
+  "ko": {
+    "faqs": [
+      {
+        "question": "수영 기록은 어떻게 계산하나요?",
+        "answer": "기록은 거리, 풀 길이, 그리고 벽 사이에서의 페이스 함수입니다. 우리 모델은 스타트/턴 이점을 조정해 SCY, SCM, LCM을 더 공정하게 비교할 수 있게 합니다."
+      },
+      {
+        "question": "swimswam 기록 변환기는 정확한가요?",
+        "answer": "모든 공개 변환기는 추정치입니다. 개인의 강점(예: 수중 돌핀, 턴) 때문에 단수영장이 장수영장보다 더 빠르거나 그 반대일 수도 있습니다. 슬라이더로 조정하세요."
+      },
+      {
+        "question": "2000야드 수영 기록은 어느 정도가 좋나요?",
+        "answer": "경험에 따라 다릅니다. 피트니스 수영은 보통 30–40분 연속을 목표로 하고, 선수급은 그보다 훨씬 더 빠를 수 있습니다."
+      },
+      {
+        "question": "1000m 수영 기록은 어느 정도가 좋나요?",
+        "answer": "많은 사람이 18–25분을 목표로 하며, 경쟁 기준은 수준과 종목 성향에 따라 달라집니다."
+      },
+      {
+        "question": "수영 시간을 거리로 변환하는 방법은?",
+        "answer": "공식: 거리 = 속도 × 시간. 페이스(예: 1:30/100m)를 m/s로 변환(100÷90=1.11m/s)한 뒤 총 시간(초)을 곱합니다. 1:30/100m 페이스로 30분 수영하면 약 2,000m입니다."
+      },
+      {
+        "question": "미국 수영선수의 25야드 기록을 25미터로 변환하려면?",
+        "answer": "25m 풀 한 바퀴는 25야드보다 2.14m(약 9.4%) 깁니다. 기록에 1.094를 곱하면 대략적 추정치가 나오지만, 저희 변환기는 벽 턴 이점도 조정합니다."
+      },
+      {
+        "question": "50야드 풀이란 무엇이며 기록에 어떤 영향을 주나요?",
+        "answer": "50야드 풀은 45.72m로, 50m 올림픽 풀보다 4.28m 짧습니다. 레이스당 벽 수는 같으므로 주요 차이는 랩당 거리입니다."
+      },
+      {
+        "question": "단수영장 기록이 장수영장보다 빠른 이유는?",
+        "answer": "짧은 풀에서는 벽을 더 자주 칩니다. 각 벽에서 밀어내기와 수중 유선형 단계로 속도를 얻어 벽당 약 0.2~0.8초 절약됩니다. 25m 풀 200m 레이스는 50m 풀의 두 배 벽이 있습니다."
+      },
+      {
+        "question": "수영에서 페이스와 속도의 차이는?",
+        "answer": "페이스 = 거리당 시간(예: 1:20/100m), 속도 = 시간당 거리(예: 1.25m/s). 코치는 경기 계획에 페이스를, 총 거리 계산에는 속도를 사용합니다."
+      },
+      {
+        "question": "NCAA와 USA Swimming은 같은 풀 크기를 사용하나요?",
+        "answer": "NCAA 대회는 25야드(SCY) 풀, USA Swimming은 SCY, 25m(SCM), 또는 50m(LCM) 풀을 사용합니다. 올림픽 선발전은 50m 풀에서 진행됩니다."
+      }
+    ]
+  },
+  "ms": {
+    "faqs": [
+      {
+        "question": "Bagaimana mengira masa renang?",
+        "answer": "Masa bergantung pada jarak, panjang kolam, dan rentak anda antara dinding. Model kami melaras kelebihan mula/pusingan supaya anda boleh membandingkan SCY, SCM dan LCM dengan lebih adil."
+      },
+      {
+        "question": "Adakah penukar masa swimswam tepat?",
+        "answer": "Semua penukar awam adalah anggaran. Kekuatan individu (cth., dolfin bawah air, pusingan) boleh membuat anda lebih laju dalam kursus pendek berbanding kursus panjang, atau sebaliknya. Gunakan slider untuk melaras."
+      },
+      {
+        "question": "Apakah masa 2000 yard yang baik?",
+        "answer": "Ia bergantung pada pengalaman. Perenang kecergasan sering mensasarkan 30–40 minit berterusan; perenang kompetitif mungkin jauh lebih pantas."
+      },
+      {
+        "question": "Apakah masa 1000m yang baik?",
+        "answer": "Ramai mensasarkan 18–25 minit; penanda aras kompetitif berbeza mengikut tahap dan fokus acara."
+      },
+      {
+        "question": "Bagaimana menukar masa renang kepada jarak?",
+        "answer": "Formula: Jarak = Kelajuan × Masa. Tukar rentak (cth. 1:30/100m) kepada m/s (100÷90=1.11m/s), kemudian darab dengan jumlah masa (saat). 30 minit pada 1:30/100m ≈ 2,000 meter."
+      },
+      {
+        "question": "Bagaimana menukar masa 25 yard kepada 25 meter untuk perenang AS?",
+        "answer": "Pusingan 25 m lebih panjang 2.14 m (~9.4%) daripada 25 yard. Darab masa dengan 1.094 untuk anggaran kasar, tetapi penukar kami juga melaras kelebihan pusingan dinding."
+      },
+      {
+        "question": "Apa itu kolam 50 yard dan bagaimana ia mempengaruhi masa?",
+        "answer": "Kolam 50 yard sepanjang 45.72 m — 4.28 m lebih pendek daripada kolam Olimpik 50 m. Kedua-duanya mempunyai bilangan dinding yang sama, perbezaannya pada jarak setiap pusingan."
+      },
+      {
+        "question": "Mengapa masa kursus pendek lebih pantas?",
+        "answer": "Dalam kolam yang lebih pendek, anda menyentuh dinding lebih kerap. Setiap dinding memberi pecutan dari tolakan dan fasa bawah air — biasanya 0.2–0.8 s setiap dinding."
+      },
+      {
+        "question": "Apa beza antara rentak dan kelajuan dalam renang?",
+        "answer": "Rentak = masa per jarak (cth. 1:20/100m), kelajuan = jarak per masa (cth. 1.25 m/s). Jurulatih guna rentak untuk perancangan perlumbaan; kelajuan berguna untuk mengira jumlah jarak."
+      },
+      {
+        "question": "Adakah NCAA dan USA Swimming menggunakan saiz kolam yang sama?",
+        "answer": "Pertandingan NCAA di kolam 25 yard (SCY), manakala USA Swimming boleh SCY, 25 m (SCM) atau 50 m (LCM). Pemilihan Olimpik di kolam 50 m."
+      }
+    ]
+  },
+  "pl": {
+    "faqs": [
+      {
+        "question": "Jak oblicza się czas pływania?",
+        "answer": "Czas zależy od dystansu, długości basenu i tempa między ścianami. Nasz model koryguje przewagi startu/nawrotów, aby porównanie SCY, SCM i LCM było bardziej sprawiedliwe."
+      },
+      {
+        "question": "Czy konwerter czasu swimswam jest dokładny?",
+        "answer": "Wszystkie publiczne konwertery to przybliżenia. Indywidualne atuty (np. podwodny delfin, nawroty) mogą sprawić, że będziesz szybszy na krótkim basenie niż na długim, lub odwrotnie. Dostosuj suwaki."
+      },
+      {
+        "question": "Jaki jest dobry czas na 2000 jardów?",
+        "answer": "To zależy od doświadczenia. Pływacy fitness często celują w 30–40 minut ciągłego pływania; pływacy wyczynowi mogą być znacznie szybsi."
+      },
+      {
+        "question": "Jaki jest dobry czas na 1000 m?",
+        "answer": "Wiele osób celuje w 18–25 minut; progi wyczynowe zależą od poziomu i specjalizacji."
+      },
+      {
+        "question": "Jak przeliczyć czas pływania na dystans?",
+        "answer": "Wzór: Dystans = Prędkość × Czas. Zamień tempo (np. 1:30/100m) na m/s (100÷90=1,11 m/s), pomnóż przez całkowity czas w sekundach. 30 min przy 1:30/100m ≈ 2 000 metrów."
+      },
+      {
+        "question": "Jak przeliczyć czasy z 25 jardów na 25 metrów (USA)?",
+        "answer": "Tor 25 m jest o 2,14 m (~9,4%) dłuższy niż 25 jardów. Pomnożenie czasu przez 1,094 daje przybliżenie, ale nasz konwerter uwzględnia też przewagi nawrotów."
+      },
+      {
+        "question": "Czym jest basen 50-jardowy i jak wpływa na czasy?",
+        "answer": "Basen 50-jardowy ma 45,72 m — 4,28 m mniej niż 50-metrowy basen olimpijski. Liczba ścian na wyścig jest taka sama, różnica polega na długości toru."
+      },
+      {
+        "question": "Dlaczego czasy na krótkim basenie są szybsze?",
+        "answer": "W krótszym basenie częściej dotykasz ściany. Każda ściana daje przyspieszenie z odbicia i fazy podwodnej — zwykle 0,2–0,8 s na ścianę. Wyścig 200 m w basenie 25 m ma dwa razy więcej ścian niż w 50 m."
+      },
+      {
+        "question": "Jaka jest różnica między tempem a prędkością w pływaniu?",
+        "answer": "Tempo = czas na dystans (np. 1:20/100m), prędkość = dystans na czas (np. 1,25 m/s). Trenerzy używają tempa do planowania wyścigów; prędkość jest przydatna do obliczeń dystansu."
+      },
+      {
+        "question": "Czy NCAA i USA Swimming używają tego samego rozmiaru basenu?",
+        "answer": "Zawody NCAA odbywają się w basenach 25-jardowych (SCY), a USA Swimming może być SCY, 25 m (SCM) lub 50 m (LCM). Kwalifikacje olimpijskie — w basenach 50 m."
+      }
+    ]
+  },
+  "id": {
+    "faqs": [
+      {
+        "question": "Bagaimana cara menghitung waktu renang?",
+        "answer": "Waktu adalah fungsi dari jarak, panjang kolam, dan pace Anda di antara dinding. Model kami menyesuaikan keuntungan start/turn agar Anda bisa membandingkan SCY, SCM, dan LCM dengan lebih adil."
+      },
+      {
+        "question": "Apakah time converter swimswam akurat?",
+        "answer": "Semua converter publik adalah perkiraan. Kekuatan individu (mis., dolphin bawah air, turn) bisa membuat Anda lebih cepat di short-course dibanding long-course, atau sebaliknya. Gunakan slider untuk menyesuaikan."
+      },
+      {
+        "question": "Berapa waktu 2000 yard yang bagus?",
+        "answer": "Tergantung pengalaman. Perenang fitness sering menargetkan 30–40 menit kontinu; perenang kompetitif bisa jauh lebih cepat."
+      },
+      {
+        "question": "Berapa waktu 1000m yang bagus?",
+        "answer": "Banyak yang menargetkan 18–25 menit; tolok ukur kompetitif bervariasi حسب tingkat dan fokus event."
+      },
+      {
+        "question": "Bagaimana mengonversi waktu renang ke jarak?",
+        "answer": "Rumus: Jarak = Kecepatan × Waktu. Konversi pace (misal 1:30/100m) ke m/s (100÷90=1,11 m/s), lalu kalikan dengan total waktu (detik). 30 menit pada 1:30/100m ≈ 2.000 meter."
+      },
+      {
+        "question": "Bagaimana mengonversi waktu 25 yard ke 25 meter untuk perenang AS?",
+        "answer": "Lap 25 m lebih panjang 2,14 m (~9,4%) dari 25 yard. Kalikan waktu dengan 1,094 untuk perkiraan kasar, tetapi converter kami juga menyesuaikan keuntungan wall-turn."
+      },
+      {
+        "question": "Apa itu kolam 50 yard dan bagaimana pengaruhnya terhadap waktu?",
+        "answer": "Kolam 50 yard sepanjang 45,72 m — 4,28 m lebih pendek dari kolam Olimpiade 50 m. Keduanya memiliki jumlah dinding yang sama per lomba, perbedaannya pada jarak per lap."
+      },
+      {
+        "question": "Mengapa waktu short-course lebih cepat?",
+        "answer": "Di kolam lebih pendek, Anda menyentuh dinding lebih sering. Setiap dinding memberi dorongan dari push-off dan fase underwater — biasanya 0,2–0,8 detik per dinding."
+      },
+      {
+        "question": "Apa perbedaan pace dan kecepatan dalam renang?",
+        "answer": "Pace = waktu per jarak (misal 1:20/100m), kecepatan = jarak per waktu (misal 1,25 m/s). Pelatih menggunakan pace untuk planning lomba; kecepatan berguna untuk menghitung total jarak."
+      },
+      {
+        "question": "Apakah NCAA dan USA Swimming menggunakan ukuran kolam yang sama?",
+        "answer": "Kompetisi NCAA di kolam 25 yard (SCY), sedangkan USA Swimming bisa SCY, 25 m (SCM), atau 50 m (LCM). Seleksi Olimpiade menggunakan kolam 50 m."
+      }
+    ]
+  },
+  "ar": {
+    "faqs": [
+      {
+        "question": "كيف تحسب زمن السباحة؟",
+        "answer": "الزمن يعتمد على المسافة وطول المسبح ووتيرتك بين الجدران. نموذجنا يضبط مزايا الانطلاق/المنعطفات لتتمكن من مقارنة SCY وSCM وLCM بشكل أكثر عدلاً."
+      },
+      {
+        "question": "هل محول زمن swimswam دقيق؟",
+        "answer": "كل المحولات العامة تقديرية. قد تجعل نقاط القوة الفردية (مثل الدلفين تحت الماء والمنعطفات) أداءك أسرع في المسبح القصير مقارنة بالطويل، أو العكس. استخدم المنزلقات للضبط."
+      },
+      {
+        "question": "ما هو زمن جيد لسباحة 2000 ياردة؟",
+        "answer": "يعتمد ذلك على الخبرة. سباحو اللياقة غالبًا يستهدفون 30–40 دقيقة متواصلة؛ السباحون التنافسيون قد يحققون زمنًا أقل بكثير."
+      },
+      {
+        "question": "ما هو زمن جيد لسباحة 1000 متر؟",
+        "answer": "الكثيرون يستهدفون 18–25 دقيقة؛ ومعايير المنافسة تختلف حسب المستوى وتركيز السباق."
+      },
+      {
+        "question": "كيف أحوّل زمن السباحة إلى مسافة؟",
+        "answer": "المعادلة: المسافة = السرعة × الزمن. حوّل وتيرتك (مثلاً 1:30 لكل 100م) إلى م/ث (100÷90=1.11 م/ث)، ثم اضرب في إجمالي الزمن بالثواني. 30 دقيقة بوتيرة 1:30/100م ≈ 2,000 متر."
+      },
+      {
+        "question": "كيف أحوّل أزمنة 25 ياردة إلى 25 متراً للسباحين الأمريكيين؟",
+        "answer": "لفة 25 م أطول بـ 2.14 م (~9.4%) من 25 ياردة. ضرب الزمن في 1.094 يعطي تقديراً تقريبياً، لكن محولنا يضبط أيضاً مزايا الدوران عند الجدار."
+      },
+      {
+        "question": "ما هو مسبح 50 ياردة وكيف يؤثر على الأزمنة؟",
+        "answer": "مسبح 50 ياردة طوله 45.72 م — أقصر بـ 4.28 م من مسبح أولمبي 50 م. عدد الجدران في كل سباق متساوٍ، الفرق في المسافة لكل لفة."
+      },
+      {
+        "question": "لماذا أزمنة المسبح القصير أسرع من الطويل؟",
+        "answer": "في المسبح الأقصر تلمس الجدار أكثر. كل جدار يمنح دفعة من الارتداد والمرحلة تحت الماء — عادة 0.2–0.8 ثانية لكل جدار."
+      },
+      {
+        "question": "ما الفرق بين الوتيرة والسرعة في السباحة؟",
+        "answer": "الوتيرة = الزمن لكل مسافة (مثلاً 1:20/100م)، السرعة = المسافة لكل زمن (مثلاً 1.25 م/ث). يستخدم المدربون الوتيرة لتخطيط السباقات؛ والسرعة لحساب المسافة الكلية."
+      },
+      {
+        "question": "هل تستخدم NCAA و USA Swimming نفس حجم المسبح؟",
+        "answer": "مسابقات NCAA في مسابح 25 ياردة (SCY)، بينما USA Swimming قد تكون SCY أو 25م (SCM) أو 50م (LCM). التصفيات الأولمبية في مسابح 50م."
+      }
+    ]
+  },
+  "bg": {
+    "faqs": [
+      {
+        "question": "Как се изчислява времето за плуване?",
+        "answer": "Времето е функция от дистанцията, дължината на басейна и темпото между стените. Нашият модел коригира предимствата при старт/обръщане, за да сравнявате SCY, SCM и LCM по-справедливо."
+      },
+      {
+        "question": "Точен ли е конверторът за време на swimswam?",
+        "answer": "Всички публични конвертори са оценки. Индивидуални силни страни (напр. подводен „делфин“, обръщания) могат да ви направят по-бързи на къс басейн спрямо дълъг, или обратното. Настройте със плъзгачите."
+      },
+      {
+        "question": "Какво е добро време за 2000 ярда плуване?",
+        "answer": "Зависи от опита. Плувците за фитнес често целят 30–40 минути непрекъснато; състезателните плувци може да са доста под това."
+      },
+      {
+        "question": "Какво е добро време за 1000 м плуване?",
+        "answer": "Много хора целят 18–25 минути; състезателните ориентири варират според нивото и фокуса на дисциплината."
+      },
+      {
+        "question": "Как да преобразувам време за плуване в разстояние?",
+        "answer": "Формула: Разстояние = Скорост × Време. Преобразувайте темпото (напр. 1:30/100м) в м/с (100÷90=1,11 м/с), после умножете по общото време в секунди. 30 мин при 1:30/100м ≈ 2 000 метра."
+      },
+      {
+        "question": "Как да преобразувам времена от 25 ярда в 25 метра (за американски плувци)?",
+        "answer": "Дължината на 25 м е с 2,14 м (~9,4%) повече от 25 ярда. Умножаването на времето по 1,094 дава приблизителна оценка, но нашият конвертор регулира и предимствата от обръщанията."
+      },
+      {
+        "question": "Какво е 50-ярдов басейн и как влияе на времената?",
+        "answer": "50-ярдов басейн е дълъг 45,72 м — с 4,28 м по-кратък от 50-метров олимпийски. Броят на стените е еднакъв, разликата е в дължината на дорожката."
+      },
+      {
+        "question": "Защо времената на къс басейн са по-бързи?",
+        "answer": "В по-късия басейн докосвате стената по-често. Всяка стена дава ускорение от отласкването и подводната фаза — обикновено 0,2–0,8 с на стена."
+      },
+      {
+        "question": "Каква е разликата между темпо и скорост в плуването?",
+        "answer": "Темпо = време за дистанция (напр. 1:20/100м), скорост = дистанция за време (напр. 1,25 м/с). Треньорите ползват темпо за планиране; скоростта е полезна за изчисления."
+      },
+      {
+        "question": "NCAA и USA Swimming ползват ли еднакъв размер на басейна?",
+        "answer": "Състезанията на NCAA са в 25-ярдови (SCY) басейни, а USA Swimming може да е SCY, 25 м (SCM) или 50 м (LCM). Олимпийските квалификации са в 50-метрови басейни."
+      }
+    ]
+  },
+  "tr": {
+    "faqs": [
+      {
+        "question": "Yüzme süresi nasıl hesaplanır?",
+        "answer": "Süre; mesafe, havuz uzunluğu ve duvarlar arasındaki temponuzun bir fonksiyonudur. Modelimiz başlangıç/dönüş avantajlarını ayarlayarak SCY, SCM ve LCM’yi daha adil karşılaştırmanızı sağlar."
+      },
+      {
+        "question": "swimswam zaman dönüştürücü doğru mu?",
+        "answer": "Tüm herkese açık dönüştürücüler tahmindir. Bireysel güçlü yönler (ör. su altı dolfini, dönüşler) sizi kısa kulvarda uzun kulvara göre daha hızlı yapabilir veya tersi olabilir. Ayarlamak için kaydırıcıları kullanın."
+      },
+      {
+        "question": "2000 yard yüzme için iyi bir süre nedir?",
+        "answer": "Deneyime bağlıdır. Fitness yüzücüleri genelde 30–40 dakika kesintisiz hedefler; yarışmacı yüzücüler bunun çok altına inebilir."
+      },
+      {
+        "question": "1000 m için iyi bir yüzme süresi nedir?",
+        "answer": "Birçok kişi 18–25 dakikayı hedefler; yarış ölçütleri seviye ve branşa göre değişir."
+      },
+      {
+        "question": "Yüzme süresini mesafeye nasıl çeviririm?",
+        "answer": "Formül: Mesafe = Hız × Süre. Tempounuzu (ör. 1:30/100m) m/s'ye çevirin (100÷90=1,11 m/s), toplam süreyle (saniye) çarpın. 1:30/100m tempoyla 30 dk ≈ 2.000 metre."
+      },
+      {
+        "question": "ABD yüzücüleri için 25 yard süresini 25 metreye nasıl çeviririm?",
+        "answer": "25 m havuz turu 25 yarddan 2,14 m (~%9,4) daha uzundur. Süreyi 1,094 ile çarpmak kaba bir tahmin verir; dönüştürücümüz duvar dönüş avantajını da ayarlar."
+      },
+      {
+        "question": "50 yard havuz nedir ve süreleri nasıl etkiler?",
+        "answer": "50 yard havuz 45,72 m uzunluğundadır — 50 m olimpik havuzdan 4,28 m daha kısadır. Yarış başına duvar sayısı aynıdır, fark tur başına mesafededir."
+      },
+      {
+        "question": "Kısa kulvar süreleri neden daha hızlıdır?",
+        "answer": "Kısa havuzda duvara daha sık dokunursunuz. Her duvar itiş ve sualtı faz sayesinde hız kazandırır — genellikle duvar başına 0,2–0,8 s tasarruf. 25 m havuzda 200 m yarışta 50 m havuzun iki katı duvar vardır."
+      },
+      {
+        "question": "Yüzmede tempo ve hız arasındaki fark nedir?",
+        "answer": "Tempo = mesafe başına süre (ör. 1:20/100m), hız = süre başına mesafe (ör. 1,25 m/s). Antrenörler yarış planlaması için tempo kullanır; hız toplam mesafe hesaplamalarında yararlıdır."
+      },
+      {
+        "question": "NCAA ve USA Swimming aynı havuz boyutunu mu kullanır?",
+        "answer": "NCAA yarışmaları 25 yard (SCY) havuzlarda yapılır; USA Swimming SCY, 25 m (SCM) veya 50 m (LCM) olabilir. Olimpiyat elemeleri 50 m havuzlarda yapılır."
+      }
+    ]
+  },
+  "sv": {
+    "faqs": [
+      {
+        "question": "Hur beräknar man simtid?",
+        "answer": "Tiden beror på distans, bassänglängd och ditt tempo mellan väggarna. Vår modell justerar för start-/vändningsfördelar så att du kan jämföra SCY, SCM och LCM mer rättvist."
+      },
+      {
+        "question": "Är swimswam-tidomvandlaren korrekt?",
+        "answer": "Alla offentliga omvandlare är uppskattningar. Individuella styrkor (t.ex. undervattensdelfin, vändningar) kan göra dig snabbare i kortbana än långbana, eller tvärtom. Använd reglagen för att finjustera."
+      },
+      {
+        "question": "Vad är en bra tid på 2000 yards?",
+        "answer": "Det beror på erfarenhet. Motionärer siktar ofta på 30–40 minuter kontinuerligt; tävlingssimmare kan ligga långt under."
+      },
+      {
+        "question": "Vad är en bra tid på 1000 m?",
+        "answer": "Många siktar på 18–25 minuter; tävlingsriktmärken varierar med nivå och grenfokus."
+      },
+      {
+        "question": "Hur omvandlar jag simtid till distans?",
+        "answer": "Formel: Distans = Hastighet × Tid. Omvandla ditt tempo (t.ex. 1:30/100m) till m/s (100÷90=1,11 m/s), multiplicera med total tid i sekunder. 30 min vid 1:30/100m ≈ 2 000 meter."
+      },
+      {
+        "question": "Hur omvandlar jag 25-yardstider till 25 meter för amerikanska simmare?",
+        "answer": "En 25 m-bana är 2,14 m (~9,4 %) längre än 25 yard. Att multiplicera tiden med 1,094 ger en uppskattning, men vår omvandlare justerar även vändningsfördelarna."
+      },
+      {
+        "question": "Vad är en 50-yardspool och hur påverkar den tiderna?",
+        "answer": "En 50-yardspool är 45,72 m — 4,28 m kortare än en olympisk 50 m-pool. Antalet väggar per lopp är detsamma, skillnaden är distansen per längd."
+      },
+      {
+        "question": "Varför är kortbanetider snabbare?",
+        "answer": "I en kortare pool touchar man väggen oftare. Varje vägg ger fart från avstampet och undervattenfasen — typiskt 0,2–0,8 s per vägg. Ett 200 m-lopp i 25 m-pool har dubbelt så många väggar som i 50 m-pool."
+      },
+      {
+        "question": "Vad är skillnaden mellan tempo och hastighet i simning?",
+        "answer": "Tempo = tid per distans (t.ex. 1:20/100m), hastighet = distans per tid (t.ex. 1,25 m/s). Tränare använder tempo för tävlingsplanering; hastighet är användbar för att beräkna total distans."
+      },
+      {
+        "question": "Använder NCAA och USA Swimming samma poolstorlek?",
+        "answer": "NCAA-tävlingar hålls i 25-yardspooler (SCY), medan USA Swimming kan vara SCY, 25 m (SCM) eller 50 m (LCM). Olympiska uttagningar sker i 50 m-pooler."
+      }
+    ]
+  }
+}
