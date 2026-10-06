@@ -1,0 +1,11 @@
+# Cloudflare Pages & Static Hosts 301 Redirects
+
+https://www.timeswimconverter.com/* https://timeswimconverter.com/:splat 301
+http://www.timeswimconverter.com/*  https://timeswimconverter.com/:splat 301
+
+https://www.timeswinter.com/*       https://timeswimconverter.com/:splat 301
+http://www.timeswinter.com/*        https://timeswimconverter.com/:splat 301
+https://timeswinter.com/*           https://timeswimconverter.com/:splat 301
+http://timeswinter.com/*            https://timeswimconverter.com/:splat 301
+
+http://timeswimconverter.com/*      https://timeswimconverter.com/:splat 301
