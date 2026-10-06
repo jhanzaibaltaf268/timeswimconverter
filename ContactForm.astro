@@ -1,0 +1,90 @@
+---
+
+---
+
+<form id="contact-form" class="glass-card mt-8 p-6 md:p-8 space-y-6 max-w-2xl animate-fadeIn" style="animation-delay: 0.1s;">
+  <div>
+    <label class="block mb-2 text-ocean-400 font-medium text-sm" for="name">Your name</label>
+    <input 
+      required 
+      id="name" 
+      name="name" 
+      type="text" 
+      placeholder="Jane Doe" 
+      class="premium-input w-full" 
+    />
+  </div>
+
+  <div>
+    <label class="block mb-2 text-ocean-400 font-medium text-sm" for="email">Email</label>
+    <input 
+      required 
+      id="email" 
+      name="email" 
+      type="email" 
+      placeholder="you@example.com" 
+      class="premium-input w-full" 
+    />
+  </div>
+
+  <div>
+    <label class="block mb-2 text-ocean-400 font-medium text-sm" for="message">Message</label>
+    <textarea 
+      required 
+      id="message" 
+      name="message" 
+      rows="6" 
+      placeholder="How can we help?" 
+      class="premium-input w-full resize-none"
+    ></textarea>
+  </div>
+
+  <!-- Web3Forms access key -->
+  <input type="hidden" name="access_key" value="919fae56-32cd-4db4-a166-cb45159ae574" />
+
+  <div class="flex flex-wrap justify-between items-center gap-4 pt-2">
+    <button type="submit" class="premium-btn flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+      </svg>
+      Send Message
+    </button>
+    <a class="premium-link text-sm" href="mailto:admin@shahabdev.com">Or email us directly →</a>
+  </div>
+
+  <div id="form-result" class="text-white/70 text-sm"></div>
+</form>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById('contact-form');
+    const resultEl = document.getElementById('form-result');
+
+    if (!form || !resultEl) return;
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      resultEl.innerHTML = '<span class="text-ocean-400">Sending...</span>';
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          resultEl.innerHTML = '<span class="text-green-400">✓ Form submitted successfully. We\'ll get back to you soon!</span>';
+          form.reset();
+        } else {
+          resultEl.innerHTML = '<span class="text-red-400">✕ Error submitting form. Please try again.</span>';
+        }
+      } catch (error) {
+        resultEl.innerHTML = '<span class="text-red-400">✕ Network error. Please try again.</span>';
+      }
+    });
+  })();
+</script>

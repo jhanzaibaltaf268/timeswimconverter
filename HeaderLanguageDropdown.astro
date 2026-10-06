@@ -1,0 +1,126 @@
+---
+import { getLocaleFromUrl, getLocalizedUrl, languageMap, locales } from '@theme/i18n/utils';
+
+const currentLocale = getLocaleFromUrl(Astro.url);
+const currentLabel = languageMap[currentLocale] || 'English';
+
+const languageList = locales.map((loc) => ({
+  locale: loc,
+  label: languageMap[loc],
+  href: getLocalizedUrl(Astro.url.pathname, loc),
+  isActive: loc === currentLocale,
+}));
+---
+
+<div class="relative inline-block text-left language-dropdown-wrapper">
+  <!-- Trigger Button -->
+  <button
+    type="button"
+    class="inline-flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-medium text-slate-200 bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 hover:border-cyan-400/40 rounded-xl transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/40 cursor-pointer lang-dropdown-btn"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-label="Select Language"
+  >
+    <!-- Globe Icon -->
+    <svg class="w-4 h-4 text-cyan-400 shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+    <span class="font-medium pointer-events-none">{currentLabel}</span>
+    <!-- Chevron Down Icon -->
+    <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200 lang-chevron shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    class="hidden absolute right-0 mt-2 w-52 sm:w-56 max-h-80 overflow-y-auto rounded-2xl bg-[#0b0c16]/95 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/90 py-2 z-50 focus:outline-none lang-dropdown-menu scrollbar-thin scrollbar-thumb-slate-700"
+    role="menu"
+    aria-orientation="vertical"
+  >
+    <div class="px-3 py-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-slate-400 border-b border-white/10 mb-1">
+      Select Language
+    </div>
+
+    <div class="grid grid-cols-1 gap-0.5 px-1">
+      {
+        languageList.map((item) => (
+          <a
+            href={item.href}
+            role="menuitem"
+            class={`flex items-center justify-between px-3 py-2 text-xs sm:text-sm rounded-xl transition-all duration-150 ${
+              item.isActive
+                ? 'bg-gradient-to-r from-indigo-500/25 to-cyan-500/25 text-cyan-300 font-bold border border-cyan-400/30'
+                : 'text-slate-300 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <span>{item.label}</span>
+            {item.isActive && (
+              <svg class="w-4 h-4 text-cyan-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    function setupDropdowns() {
+      const wrappers = document.querySelectorAll('.language-dropdown-wrapper');
+      
+      wrappers.forEach((wrapper) => {
+        const btn = wrapper.querySelector('.lang-dropdown-btn');
+        const menu = wrapper.querySelector('.lang-dropdown-menu');
+        const chevron = wrapper.querySelector('.lang-chevron');
+
+        if (!btn || !menu || btn.dataset.dropdownReady === 'true') return;
+        btn.dataset.dropdownReady = 'true';
+
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const isHidden = menu.classList.contains('hidden');
+          
+          document.querySelectorAll('.lang-dropdown-menu').forEach((m) => {
+            if (m !== menu) m.classList.add('hidden');
+          });
+          document.querySelectorAll('.lang-dropdown-btn').forEach((b) => {
+            if (b !== btn) {
+              b.setAttribute('aria-expanded', 'false');
+              const c = b.querySelector('.lang-chevron');
+              if (c) c.classList.remove('rotate-180');
+            }
+          });
+
+          if (isHidden) {
+            menu.classList.remove('hidden');
+            btn.setAttribute('aria-expanded', 'true');
+            if (chevron) chevron.classList.add('rotate-180');
+          } else {
+            menu.classList.add('hidden');
+            btn.setAttribute('aria-expanded', 'false');
+            if (chevron) chevron.classList.remove('rotate-180');
+          }
+        };
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.language-dropdown-wrapper')) {
+          document.querySelectorAll('.lang-dropdown-menu').forEach((m) => m.classList.add('hidden'));
+          document.querySelectorAll('.lang-dropdown-btn').forEach((b) => {
+            b.setAttribute('aria-expanded', 'false');
+            const c = b.querySelector('.lang-chevron');
+            if (c) c.classList.remove('rotate-180');
+          });
+        }
+      });
+    }
+
+    setupDropdowns();
+  });
+</script>

@@ -1,0 +1,45 @@
+---
+interface ChartData {
+  name: string;
+  value: string[];
+}
+
+const { title, data } = Astro.props as { title: string; data: ChartData[] };
+
+import { getTranslations, getLocaleFromUrl } from '@theme/i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+{
+  data.length > 0 && (
+    <section class="glass-card mt-8 p-6 md:p-8 animate-fadeIn overflow-hidden">
+      <h2 class="font-bold text-xl md:text-2xl gradient-text mb-6">{title}</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-white/15">
+              {data.map((item) => (
+                <th class="py-3 px-4 text-left text-ocean-400 font-semibold text-sm uppercase tracking-wider">
+                  {t[item.name]}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10">
+            {data[0].value?.map((_, index) => (
+              <tr class="hover:bg-white/5 transition-colors duration-200">
+                {data.map((item) => (
+                  <td class="py-3 px-4 text-white/85 text-sm mono">
+                    {item.value[index]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )
+}

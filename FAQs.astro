@@ -1,0 +1,34 @@
+---
+import { getTranslations, getLocaleFromUrl } from '@theme/i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+
+interface FAQ {
+  question: string;
+  answer: string;
+  display?: boolean;
+}
+
+const { faqs } = Astro.props as { faqs: FAQ[] };
+---
+
+{
+  faqs.length > 0 && (
+    <section class="glass-card mt-8 p-6 md:p-8 animate-fadeIn">
+      <h2 class="font-bold text-xl md:text-2xl gradient-text mb-6">{t['Frequently Asked Questions']}</h2>
+      <div class="space-y-3">
+        {faqs.map((faq: FAQ) => faq.display !== false && (
+          <details class="faq-item group">
+            <summary class="text-white/95 font-medium pr-8">
+              {faq.question}
+            </summary>
+            <div class="faq-content text-white/70 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}

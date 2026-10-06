@@ -1,0 +1,160 @@
+---
+import HeaderLanguageDropdown from '@theme/components/HeaderLanguageDropdown.astro';
+import { getTranslations, getLocaleFromUrl, getLocalizedUrl } from '@theme/i18n/utils';
+import navigation from '~/config/navigation.json';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+
+const siteTitle = t.site_title;
+---
+
+<header class="relative z-20 glass-card-strong !rounded-none border-t-0 border-x-0">
+  <div class="flex justify-between items-center mx-auto px-6 py-4 max-w-6xl">
+    <a aria-label={`${siteTitle} ${t['Home']}`} class="flex flex-1 items-center gap-3 group" href={getLocalizedUrl('/', locale)}>
+      <div class="relative">
+        <img src="/images/logo.png" width="48" height="48" alt={`${siteTitle} ${t['Logo']}`} title={`${siteTitle} ${t['Logo']}`} loading="eager" class="rounded-xl transition-transform duration-300 group-hover:scale-105" />
+        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-ocean-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
+      <div class="leading-tight">
+        <span class="block font-bold text-xl gradient-text tracking-tight">
+          {siteTitle}
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
+      {
+        navigation.header.map((item) => (
+          <a 
+            class="relative px-4 py-2 text-white/95 hover:text-white text-sm font-medium transition-all duration-300 rounded-lg hover:bg-white/10" 
+            href={getLocalizedUrl(item.url, locale)}
+          >
+            {(t as any)[item.name] || item.name}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Mobile button -->
+    <div class="lg:hidden">
+      <button type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="glass-card p-2.5 !rounded-lg burger-menu" id="mobile-menu-toggle">
+        <svg class="w-6 h-6 text-ocean-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" class="lg:hidden z-50 fixed inset-0 transition-transform -translate-y-full duration-300 ease-in-out transform">
+    <div class="absolute inset-0 bg-ocean-950/98 backdrop-blur-xl p-6 overflow-auto">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-3">
+          <img src="/images/logo.png" width="48" height="48" alt={`${siteTitle} ${(t as any)['Logo'] || 'Logo'}`} title={`${siteTitle} ${(t as any)['Logo'] || 'Logo'}`} loading="eager" class="rounded-xl" />
+          <div class="leading-tight">
+            <a class="font-bold text-lg gradient-text" href={getLocalizedUrl('/', locale)} id="mobile-home-link">
+              {siteTitle}
+            </a>
+          </div>
+        </div>
+        <button type="button" class="glass-card p-2.5 !rounded-lg" aria-label="Close menu" id="mobile-menu-close">
+          <svg class="w-5 h-5 text-ocean-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-2" aria-label="Mobile">
+        {
+          navigation.header.map((item) => (
+            <a 
+              class="glass-card !rounded-xl px-5 py-4 font-medium text-white/90 hover:text-white text-lg mobile-nav-link transition-all duration-300 hover:border-ocean-500/40" 
+              href={getLocalizedUrl(item.url, locale)}
+            >
+              {(t as any)[item.name] || item.name}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="mt-10 pt-6 border-t border-white/10 text-white/50 text-sm">
+        <p>
+          &copy; {new Date().getFullYear()}
+          {siteTitle}. {(t as any)['Built with ❤️ by'] || 'Built with ❤️ by'}
+          <span class="gradient-text-gold font-medium"> BigTechies</span>.
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- simple client-side JS -->
+<script is:inline type="text/javascript">
+  const btn = document.getElementById('mobile-menu-toggle');
+  const closeBtn = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const homeLink = document.getElementById('mobile-home-link');
+
+  const openMenu = () => {
+    mobileMenu.classList.remove('-translate-y-full');
+    mobileMenu.classList.add('translate-y-0');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+
+    // swap icon to X
+    btn.innerHTML = `
+      <svg class="w-6 h-6 text-ocean-400" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M6 18L18 6M6 6l12 12"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    `;
+  };
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove('translate-y-0');
+    mobileMenu.classList.add('-translate-y-full');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+
+    // swap icon back to burger
+    btn.innerHTML = `
+      <svg class="w-6 h-6 text-ocean-400" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 12h18M3 6h18M3 18h18"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    `;
+  };
+
+  if (btn && mobileMenu) {
+    btn.addEventListener('click', () => {
+      const isOpen = mobileMenu.getAttribute('aria-hidden') === 'false';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
+  }
+
+  // close on any mobile link click
+  [...mobileLinks, homeLink].forEach((el) => {
+    if (el) el.addEventListener('click', closeMenu);
+  });
+</script>

@@ -1,0 +1,122 @@
+---
+// theme/components/ExploreMoreTools.astro
+
+const tools = [
+  {
+    name: "Shahab Dev",
+    description: "Custom software development, web applications, CRM solutions, and AI automation.",
+    url: "https://www.shahabdev.com/",
+    anchor: "custom software development",
+    cta: "Visit Shahab Dev →"
+  },
+  {
+    name: "InstantSEOScan",
+    description: "AI-powered technical SEO auditing, website health checks, and Google Maps lead discovery.",
+    url: "https://www.instantseoscan.com/",
+    anchor: "SEO audit",
+    cta: "Run SEO Audit →"
+  },
+  {
+    name: "Backlink Platform",
+    description: "High-authority link building platform to boost domain rating and search rankings.",
+    url: "https://backlink.shahabdev.com/",
+    anchor: "backlink platform",
+    cta: "Build Backlinks →"
+  },
+  {
+    name: "DentalLeadCRM",
+    description: "Complete patient management and lead automation CRM software for dental clinics.",
+    url: "https://dentalleadcrm.com/",
+    anchor: "Dental CRM",
+    cta: "Explore Dental CRM →"
+  },
+  {
+    name: "JPEGtoSVG",
+    description: "Convert raster JPEG/PNG images into crisp, scalable vector SVG graphics instantly.",
+    url: "https://jpegtosvg.com/",
+    anchor: "JPEG to SVG converter",
+    cta: "Convert Images →"
+  },
+  {
+    name: "Determinant Solver",
+    description: "Advanced matrix calculator and linear algebra math solver with step-by-step solutions.",
+    url: "https://www.determinantsolver.com/",
+    anchor: "determinant calculator",
+    cta: "Solve Matrices →"
+  },
+  {
+    name: "BDFT Calculator",
+    description: "Fast wood and lumber board foot calculator for woodworking and construction projects.",
+    url: "https://www.bdftcalculator.com/",
+    anchor: "BDFT calculator",
+    cta: "Calculate Lumber →"
+  },
+  {
+    name: "MG to LB Converter",
+    description: "Accurate mass and weight unit conversion calculator for scientific and commercial use.",
+    url: "https://www.mgtolb.com/",
+    anchor: "mg to lb converter",
+    cta: "Convert Weight →"
+  },
+  {
+    name: "PSIG to PSIA",
+    description: "Precision pressure converter for engineering, HVAC, and industrial gauge calculations.",
+    url: "https://psigtopsia.com/",
+    anchor: "PSI converter",
+    cta: "Convert Pressure →"
+  },
+  {
+    name: "Rectangular to Polar",
+    description: "Coordinate converter for converting rectangular Cartesian values into polar coordinates.",
+    url: "https://www.rectangulartopolarcoordinates.com/",
+    anchor: "coordinate converter",
+    cta: "Convert Coordinates →"
+  },
+  {
+    name: "Shahab Dev Jobs",
+    description: "Curated job board featuring remote developer jobs and tech career opportunities.",
+    url: "https://jobs.shahabdev.com/",
+    anchor: "remote jobs",
+    cta: "Find Tech Jobs →"
+  }
+];
+---
+
+<section class="mt-12 pt-10 border-t border-white/10">
+  <div class="text-center mb-8">
+    <span class="text-xs font-semibold text-ocean-400 uppercase tracking-widest">Shahab Dev Ecosystem</span>
+    <h2 class="text-2xl md:text-3xl font-bold gradient-text mt-1">Explore More Tools</h2>
+    <p class="text-white/60 text-sm max-w-xl mx-auto mt-2">
+      Discover our complete collection of specialized web applications, AI utilities, converters, and engineering tools.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {tools.map((tool) => (
+      <div class="glass-card p-5 hover:border-ocean-400/40 transition-all duration-300 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-white group-hover:text-ocean-300 transition-colors text-base">
+              {tool.name}
+            </h3>
+            <span class="w-2 h-2 rounded-full bg-ocean-500/70 group-hover:bg-ocean-400"></span>
+          </div>
+          <p class="text-xs text-white/65 leading-relaxed mb-4">
+            {tool.description}
+          </p>
+        </div>
+        <div>
+          <a
+            href={tool.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`${tool.name} - ${tool.anchor}`}
+            class="inline-flex items-center gap-1.5 text-xs font-medium text-ocean-400 hover:text-ocean-300 transition-colors group-hover:translate-x-1 duration-200"
+          >
+            <span>{tool.cta}</span>
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

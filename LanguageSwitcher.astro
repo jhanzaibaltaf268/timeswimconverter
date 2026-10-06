@@ -1,0 +1,30 @@
+---
+import { getLocaleFromUrl, getLocalizedUrl } from '@theme/i18n/utils';
+import { languageMap } from '@theme/i18n/utils';
+
+import indexTranslations from '~/i18n/index.json';
+
+const currentLocale = getLocaleFromUrl(Astro.url);
+const currentPathname = Astro.url.pathname;
+
+const availableLocalesPages = Object.keys(indexTranslations).map((locale) => {
+  return { href: getLocalizedUrl(currentPathname, locale as any), label: languageMap[locale as keyof typeof languageMap], locale };
+});
+---
+
+<div class="flex flex-wrap gap-1.5">
+  {
+    availableLocalesPages.map(({ href, label, locale }) => (
+      <a 
+        href={href} 
+        class={`rounded-md border px-2.5 py-1 text-xs transition-all duration-300 ${
+          currentLocale === locale 
+            ? 'font-bold bg-ocean-600/30 text-white border-ocean-500/50 shadow-sm shadow-ocean-500/15' 
+            : 'text-white/60 border-white/10 hover:text-white hover:bg-white/8 hover:border-white/25'
+        }`}
+      >
+        {label}
+      </a>
+    ))
+  }
+</div>

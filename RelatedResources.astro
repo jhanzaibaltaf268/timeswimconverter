@@ -1,0 +1,82 @@
+---
+// theme/components/RelatedResources.astro
+
+interface Resource {
+  name: string;
+  url: string;
+  anchor: string;
+  description: string;
+}
+
+interface Props {
+  customResources?: Resource[];
+}
+
+const { customResources } = Astro.props;
+
+const defaultResources: Resource[] = [
+  {
+    name: "InstantSEOScan",
+    url: "https://www.instantseoscan.com/",
+    anchor: "technical SEO website audit",
+    description: "Analyze your website performance, core web vitals, and search visibility with AI-powered auditing tools."
+  },
+  {
+    name: "Shahab Dev",
+    url: "https://www.shahabdev.com/",
+    anchor: "custom software development",
+    description: "Full-stack software engineering, SaaS architecture, web applications, and AI solution development."
+  },
+  {
+    name: "Backlink Platform",
+    url: "https://backlink.shahabdev.com/",
+    anchor: "build SEO backlinks",
+    description: "Build domain authority and search engine ranking through high-quality backlink publishing platform."
+  },
+  {
+    name: "JPEGtoSVG",
+    url: "https://jpegtosvg.com/",
+    anchor: "vector converter",
+    description: "Convert raster images and graphics into clean, scalable SVG vector formats."
+  },
+  {
+    name: "Determinant Solver",
+    url: "https://www.determinantsolver.com/",
+    anchor: "linear algebra math solver",
+    description: "Calculate matrix determinants, inverse matrices, and linear algebra equations instantly."
+  },
+  {
+    name: "DentalLeadCRM",
+    url: "https://dentalleadcrm.com/",
+    anchor: "clinic patient management software",
+    description: "All-in-one patient lead management and automated appointment scheduling software for dental clinics."
+  }
+];
+
+const list = customResources || defaultResources;
+---
+
+<section class="mt-10 pt-8 border-t border-white/10 animate-fadeIn">
+  <h2 class="text-xl md:text-2xl font-bold gradient-text mb-4">Related Resources</h2>
+  <ul class="space-y-3">
+    {list.map((item) => (
+      <li class="flex items-start gap-3 text-sm text-white/80">
+        <span class="text-ocean-400 font-bold text-lg leading-none">•</span>
+        <div>
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-ocean-400 hover:text-ocean-300 hover:underline transition-colors"
+          >
+            {item.name}
+          </a>
+          <span class="text-white/40 mx-1.5">–</span>
+          <span class="text-white/70">
+            {item.description} Learn more about our <a href={item.url} target="_blank" rel="noopener noreferrer" class="text-ocean-400 hover:underline">{item.anchor}</a> services.
+          </span>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
