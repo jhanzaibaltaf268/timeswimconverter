@@ -1,0 +1,28 @@
+{
+  "site": {
+    "base_url": "https://timeswimconverter.com",
+    "google_verification": "35mwR2yLqG6AbDrf1Y_0MyeT0x7vEqUdBvWBDvQw1GM",
+    "bing_verification": "",
+    "yandex_verification": "28d49d0d0418a49a",
+    "language": "en",
+    "google_analytics_id": "T24MJKS31M"
+  },
+  "social": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/shahabuddin38/"
+    },
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/shahab.uddin38"
+    },
+    {
+      "name": "Twitter",
+      "url": "https://www.shahabdev.com/"
+    }
+  ],
+  "metadata": {
+    "meta_author": "Shahab Dev",
+    "meta_image": "/images/og.png"
+  }
+}
